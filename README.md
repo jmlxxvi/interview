@@ -283,6 +283,36 @@ User enters credentials → ???? → User accesses protected routes
 
 **Q50: The test database is polluted with data from previous test runs. How do you ensure test isolation?**
 
+## System Design & Scaling
+
+### Q51: How would you scale this application to handle 10x more users?
+
+### Q52: How would you implement real-time notifications for work order status changes?
+
+## Debugging & Problem Solving
+
+### Q53: Users report intermittent "session expired" errors. How do you debug?
+
+### Q54: A migration failed halfway through. How do you recover?
+
+### Q55: Production database is running out of disk space. Immediate actions? Long term solutions?
+
+## Scenario-Based Questions
+
+### Q56: A user accidentally deleted 500 vendor records. How do you recover? How do you prevent it in the future?
+
+### Q57: Performance degrades every day at 2 AM. How do you investigate?
+
+### Q58: A critical bug is found in production. Walk through your deployment process to fix it.
+
+## Cultural Fit & Soft Skills
+
+### Q59: How do you approach learning a new codebase?
+
+### Q60: You disagree with an architectural decision in the codebase. What do you do?
+
+### Q61: How do you ensure code quality in your work?
+
 ## Practical Coding Exercises
 
 ### Exercise 1: Implement a New Feature (45-60 minutes)
@@ -384,33 +414,4 @@ export async function getWorkOrderDetails (args, context) {
 - Vendor name: Required, 3-255 characters
 - Email: Optional, valid email format if provided
 
-## System Design & Scaling
-
-### Q51: How would you scale this application to handle 10x more users?
-
-### Q52: How would you implement real-time notifications for work order status changes?
-
-## Debugging & Problem Solving
-
-### Q53: Users report intermittent "session expired" errors. How do you debug?
-
-### Q54: A migration failed halfway through. How do you recover?
-
-### Q55: Production database is running out of disk space. Immediate actions? Long term solutions?
-
-## Scenario-Based Questions
-
-### Q56: A user accidentally deleted 500 vendor records. How do you recover? How do you prevent it in the future?
-
-### Q57: Performance degrades every day at 2 AM. How do you investigate?
-
-### Q58: A critical bug is found in production. Walk through your deployment process to fix it.
-
-## Cultural Fit & Soft Skills
-
-### Q59: How do you approach learning a new codebase?
-
-### Q60: You disagree with an architectural decision in the codebase. What do you do?
-
-### Q61: How do you ensure code quality in your work?
 
