@@ -1,0 +1,558 @@
+<div aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">
+            Dashboard
+        </li>
+    </ol>
+</div>
+
+<div class="container-xl">
+    <div class="p-3 border">
+        <div class="mb-4">
+            <h2>Manufacturing Dashboard</h2>
+            <p class="text-muted">Real-time overview of factory operations</p>
+        </div>
+
+        <!-- Top KPI Cards -->
+        <div class="row mb-4">
+            <div class="col-md-3 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h6 class="text-muted mb-0">Active Work Orders</h6>
+                            <span class="badge bg-primary">Today</span>
+                        </div>
+                        <h2 class="mb-1">24</h2>
+                        <small class="text-success">↑ 12% from yesterday</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h6 class="text-muted mb-0">Batches in Production</h6>
+                            <span class="badge bg-warning">Running</span>
+                        </div>
+                        <h2 class="mb-1">47</h2>
+                        <small class="text-success">↑ 8% from yesterday</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h6 class="text-muted mb-0">Quality Inspections</h6>
+                            <span class="badge bg-info">Pending</span>
+                        </div>
+                        <h2 class="mb-1">12</h2>
+                        <small class="text-danger">↓ 5% from yesterday</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h6 class="text-muted mb-0">OEE Score</h6>
+                            <span class="badge bg-success">Good</span>
+                        </div>
+                        <h2 class="mb-1">87.4%</h2>
+                        <small class="text-success">↑ 2.1% from yesterday</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Production Status & Material Requests -->
+        <div class="row mb-4">
+            <div class="col-md-6 mb-3">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h5 class="mb-0">Work Order Status</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span>Running</span>
+                                <span class="fw-bold">15 orders</span>
+                            </div>
+                            <div class="progress mb-2" style="height: 8px;">
+                                <div class="progress-bar bg-success" style="width: 38%"></div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span>Scheduled</span>
+                                <span class="fw-bold">18 orders</span>
+                            </div>
+                            <div class="progress mb-2" style="height: 8px;">
+                                <div class="progress-bar bg-primary" style="width: 45%"></div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span>Paused</span>
+                                <span class="fw-bold">4 orders</span>
+                            </div>
+                            <div class="progress mb-2" style="height: 8px;">
+                                <div class="progress-bar bg-warning" style="width: 10%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-between mb-1">
+                                <span>Created</span>
+                                <span class="fw-bold">3 orders</span>
+                            </div>
+                            <div class="progress mb-2" style="height: 8px;">
+                                <div class="progress-bar bg-secondary" style="width: 7%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h5 class="mb-0">Material Requests</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3 p-3 border-start border-4 border-danger bg-light">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <div class="fw-bold">High Priority</div>
+                                    <small class="text-muted">WO-2024-0892 - Raw Material A</small>
+                                </div>
+                                <span class="badge bg-danger">8 requests</span>
+                            </div>
+                        </div>
+                        <div class="mb-3 p-3 border-start border-4 border-warning bg-light">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <div class="fw-bold">Medium Priority</div>
+                                    <small class="text-muted">WO-2024-0887 - Component B</small>
+                                </div>
+                                <span class="badge bg-warning">15 requests</span>
+                            </div>
+                        </div>
+                        <div class="mb-3 p-3 border-start border-4 border-info bg-light">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <div class="fw-bold">Normal Priority</div>
+                                    <small class="text-muted">Multiple work orders</small>
+                                </div>
+                                <span class="badge bg-info">23 requests</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Equipment & Inventory -->
+        <div class="row mb-4">
+            <div class="col-md-4 mb-3">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h5 class="mb-0">Equipment Status</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-success">● Available</span>
+                                <span class="fw-bold">32 units</span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-danger">● Unavailable</span>
+                                <span class="fw-bold">3 units</span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-warning">● Maintenance</span>
+                                <span class="fw-bold">2 units</span>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="text-center">
+                            <small class="text-muted">Utilization Rate</small>
+                            <h4 class="mb-0 text-primary">86.5%</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h5 class="mb-0">Inventory Alerts</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <div class="text-danger fw-bold">● Low Stock</div>
+                                    <small class="text-muted">Below minimum levels</small>
+                                </div>
+                                <span class="badge bg-danger">18</span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <div class="text-warning fw-bold">● Expiring Soon</div>
+                                    <small class="text-muted">Within 7 days</small>
+                                </div>
+                                <span class="badge bg-warning">7</span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <div class="text-info fw-bold">● Reserved</div>
+                                    <small class="text-muted">Pending consumption</small>
+                                </div>
+                                <span class="badge bg-info">142</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h5 class="mb-0">Production Output</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <small class="text-muted">Today</small>
+                            <h4 class="mb-0">2,847 units</h4>
+                            <small class="text-success">↑ 15% vs target</small>
+                        </div>
+                        <hr>
+                        <div class="mb-3">
+                            <small class="text-muted">This Week</small>
+                            <h4 class="mb-0">18,234 units</h4>
+                            <small class="text-success">↑ 8% vs target</small>
+                        </div>
+                        <hr>
+                        <div>
+                            <small class="text-muted">This Month</small>
+                            <h4 class="mb-0">67,891 units</h4>
+                            <small class="text-danger">↓ 3% vs target</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activity & Quality -->
+        <div class="row mb-4">
+            <div class="col-md-8 mb-3">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h5 class="mb-0">Recent Work Orders</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Code</th>
+                                        <th>Product</th>
+                                        <th>Quantity</th>
+                                        <th>Status</th>
+                                        <th>Progress</th>
+                                        <th>Assigned</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>WO-2024-0892</strong></td>
+                                        <td>Product Alpha X500</td>
+                                        <td>1,200 kg</td>
+                                        <td><span class="badge bg-success">Running</span></td>
+                                        <td>
+                                            <div class="progress" style="height: 6px; width: 100px;">
+                                                <div class="progress-bar bg-success" style="width: 75%"></div>
+                                            </div>
+                                        </td>
+                                        <td>John Smith</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>WO-2024-0891</strong></td>
+                                        <td>Component Beta 200</td>
+                                        <td>500 units</td>
+                                        <td><span class="badge bg-primary">Scheduled</span></td>
+                                        <td>
+                                            <div class="progress" style="height: 6px; width: 100px;">
+                                                <div class="progress-bar bg-primary" style="width: 30%"></div>
+                                            </div>
+                                        </td>
+                                        <td>Jane Doe</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>WO-2024-0890</strong></td>
+                                        <td>Assembly Gamma</td>
+                                        <td>2,500 units</td>
+                                        <td><span class="badge bg-success">Running</span></td>
+                                        <td>
+                                            <div class="progress" style="height: 6px; width: 100px;">
+                                                <div class="progress-bar bg-success" style="width: 45%"></div>
+                                            </div>
+                                        </td>
+                                        <td>Mike Johnson</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>WO-2024-0889</strong></td>
+                                        <td>Material Delta Pro</td>
+                                        <td>750 kg</td>
+                                        <td><span class="badge bg-warning">Paused</span></td>
+                                        <td>
+                                            <div class="progress" style="height: 6px; width: 100px;">
+                                                <div class="progress-bar bg-warning" style="width: 60%"></div>
+                                            </div>
+                                        </td>
+                                        <td>Sarah Wilson</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>WO-2024-0888</strong></td>
+                                        <td>Product Epsilon 300</td>
+                                        <td>1,800 liters</td>
+                                        <td><span class="badge bg-success">Running</span></td>
+                                        <td>
+                                            <div class="progress" style="height: 6px; width: 100px;">
+                                                <div class="progress-bar bg-success" style="width: 90%"></div>
+                                            </div>
+                                        </td>
+                                        <td>Tom Brown</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h5 class="mb-0">Quality Metrics</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span>Pass Rate</span>
+                                <span class="fw-bold text-success">96.2%</span>
+                            </div>
+                            <div class="progress" style="height: 10px;">
+                                <div class="progress-bar bg-success" style="width: 96.2%"></div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <div class="text-success fw-bold">✓ Passed</div>
+                                    <small class="text-muted">Last 24 hours</small>
+                                </div>
+                                <span class="badge bg-success">142</span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <div class="text-danger fw-bold">✗ Failed</div>
+                                    <small class="text-muted">Last 24 hours</small>
+                                </div>
+                                <span class="badge bg-danger">4</span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <div class="text-warning fw-bold">⟳ Rework</div>
+                                    <small class="text-muted">Last 24 hours</small>
+                                </div>
+                                <span class="badge bg-warning">8</span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <div class="text-info fw-bold">⧗ Pending</div>
+                                    <small class="text-muted">Awaiting inspection</small>
+                                </div>
+                                <span class="badge bg-info">12</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Alerts & Downtime -->
+        <div class="row mb-4">
+            <div class="col-md-6 mb-3">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h5 class="mb-0">Active Alerts</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3 p-2 border-start border-4 border-danger bg-light">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <span class="badge bg-danger mb-1">Critical</span>
+                                    <div class="fw-bold">Equipment EQ-045 Down</div>
+                                    <small class="text-muted">Work Center Assembly Line 3 - 15 min ago</small>
+                                </div>
+                                <button class="btn btn-sm btn-outline-secondary">Acknowledge</button>
+                            </div>
+                        </div>
+                        <div class="mb-3 p-2 border-start border-4 border-warning bg-light">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <span class="badge bg-warning mb-1">Warning</span>
+                                    <div class="fw-bold">Low Stock Alert: Raw Material A</div>
+                                    <small class="text-muted">Current: 245 kg | Minimum: 500 kg - 2 hours ago</small>
+                                </div>
+                                <button class="btn btn-sm btn-outline-secondary">Acknowledge</button>
+                            </div>
+                        </div>
+                        <div class="mb-3 p-2 border-start border-4 border-info bg-light">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <span class="badge bg-info mb-1">Info</span>
+                                    <div class="fw-bold">Maintenance Scheduled</div>
+                                    <small class="text-muted">Equipment EQ-012 - Tomorrow at 08:00</small>
+                                </div>
+                                <button class="btn btn-sm btn-outline-secondary">Acknowledge</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h5 class="mb-0">Downtime Events</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Equipment</th>
+                                        <th>Reason</th>
+                                        <th>Duration</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>EQ-045</td>
+                                        <td>Mechanical failure</td>
+                                        <td>15 min</td>
+                                        <td><span class="badge bg-danger">Active</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>EQ-032</td>
+                                        <td>Preventive maintenance</td>
+                                        <td>45 min</td>
+                                        <td><span class="badge bg-success">Resolved</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>EQ-018</td>
+                                        <td>Material shortage</td>
+                                        <td>2h 15min</td>
+                                        <td><span class="badge bg-success">Resolved</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>EQ-027</td>
+                                        <td>Operator break</td>
+                                        <td>30 min</td>
+                                        <td><span class="badge bg-success">Resolved</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="mt-3 p-2 bg-light rounded text-center">
+                            <small class="text-muted">Total Downtime Today:</small>
+                            <div class="fw-bold text-danger">3h 30min</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shift Performance -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Shift Performance</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <div class="p-3 border rounded">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <h6 class="mb-0">Morning Shift (06:00 - 14:00)</h6>
+                                        <span class="badge bg-success">Active</span>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-6">
+                                            <small class="text-muted">Output</small>
+                                            <div class="fw-bold">8,234 units</div>
+                                        </div>
+                                        <div class="col-6">
+                                            <small class="text-muted">Efficiency</small>
+                                            <div class="fw-bold text-success">94.2%</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="p-3 border rounded">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <h6 class="mb-0">Afternoon Shift (14:00 - 22:00)</h6>
+                                        <span class="badge bg-secondary">Upcoming</span>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-6">
+                                            <small class="text-muted">Output</small>
+                                            <div class="fw-bold text-muted">-</div>
+                                        </div>
+                                        <div class="col-6">
+                                            <small class="text-muted">Efficiency</small>
+                                            <div class="fw-bold text-muted">-</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="p-3 border rounded">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <h6 class="mb-0">Night Shift (22:00 - 06:00)</h6>
+                                        <span class="badge bg-dark">Completed</span>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-6">
+                                            <small class="text-muted">Output</small>
+                                            <div class="fw-bold">7,891 units</div>
+                                        </div>
+                                        <div class="col-6">
+                                            <small class="text-muted">Efficiency</small>
+                                            <div class="fw-bold text-warning">88.7%</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

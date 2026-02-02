@@ -1,0 +1,77 @@
+<div aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">
+            Inventory Adjustment
+        </li>
+    </ol>
+</div>
+
+<div class="container-xl">
+    <div class="p-3 border">
+        <h4 class="mb-4">Adjust Inventory Quantity</h4>
+
+        <div class="alert alert-info mb-4">
+            <strong>Note:</strong> Use positive numbers to increase inventory (e.g., +10) or negative numbers to decrease inventory (e.g., -5). 
+            Always provide a clear reason for the adjustment for audit purposes.
+        </div>
+
+        <div class="mb-3">
+            <label for="invadj__location" class="form-label">Filter by Location (Optional)</label>
+            <rpc-select 
+                id="invadj__location"
+                mod="app/inventory/location"
+                fun="findAll"
+                value-field="id"
+                label-field="name"
+                placeholder="All Locations">
+            </rpc-select>
+        </div>
+
+        <div class="mb-3">
+            <label for="invadj__inventory_item" class="form-label">Inventory Item *</label>
+            <select class="form-control" id="invadj__inventory_item">
+                <option value="">Loading...</option>
+            </select>
+            <small class="form-text text-muted">Shows current quantity and available (unreserved) quantity</small>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label class="form-label">Current Quantity</label>
+                <input type="text" class="form-control" id="invadj__current_quantity" readonly>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Reserved</label>
+                <input type="text" class="form-control" id="invadj__reserved_quantity" readonly>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Available</label>
+                <input type="text" class="form-control" id="invadj__available_quantity" readonly>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="invadj__delta_quantity" class="form-label">Adjustment Quantity *</label>
+            <input type="number" step="0.001" class="form-control" id="invadj__delta_quantity" placeholder="e.g., +10 or -5">
+            <small class="form-text text-muted">Positive to increase, negative to decrease</small>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label">New Quantity (Preview)</label>
+                <input type="text" class="form-control" id="invadj__new_quantity" readonly>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="invadj__reason" class="form-label">Reason *</label>
+            <textarea class="form-control" id="invadj__reason" rows="3" placeholder="Explain the reason for this adjustment..."></textarea>
+            <small class="form-text text-muted">Examples: Cycle count correction, Damaged goods, Found inventory, etc.</small>
+        </div>
+
+        <div class="flex flex-row flex-justify-end flex-align-center mt-4">
+            <button id="invadj__clear" class="button link mr-3">Clear Form</button>
+            <loading-button id="invadj__submit">Adjust Inventory</loading-button>
+        </div>
+    </div>
+</div>

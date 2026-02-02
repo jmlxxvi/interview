@@ -1,0 +1,35 @@
+<div aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item" aria-current="page">
+            Master Data
+        </li>
+        <li class="breadcrumb-item">
+            <a href="masterdata/vendor" router-link>Vendors</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+            Edit vendor
+        </li>
+    </ol>
+</div>
+
+<div class="container-xl">
+
+    <div class="mb-3">
+        <div id="mdavenedt__code" style="font-size: 1.4rem; font-weight: bold;"></div>
+    </div>
+
+    <div class="mb-3">
+        <label for="mdavenedt__name" class="form-label">Vendor name</label>
+        <input type="text" class="form-control" id="mdavenedt__name">
+    </div>
+
+    <div class="mb-3">
+        <label for="mdavenedt__email" class="form-label">Email</label>
+        <input type="text" class="form-control" id="mdavenedt__email">
+    </div>
+
+    <div class="flex flex-row flex-justify-between flex-align-center">
+        <button id="mdavenedt__delete" class="button link" style="color: var(--danger);">Eliminar</button>
+        <loading-button id="mdavenedt__submit" classes="mt-2">Guardar</loading-button>
+    </div>
+</div>

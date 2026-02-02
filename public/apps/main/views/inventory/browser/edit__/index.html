@@ -1,0 +1,93 @@
+<div aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="inventory/item" router-link>Inventory Items</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+            Edit item
+        </li>
+    </ol>
+</div>
+
+<div class="container-xl">
+
+    <div class="mb-3">
+        <label for="invitmedt__product" class="form-label">Product *</label>
+        <rpc-select 
+            id="invitmedt__product"
+            module="app/masterdata/product"
+            function="findByNameOrCode"
+            value-field="id"
+            label-field="name"
+            placeholder="Select product">
+        </rpc-select>
+    </div>
+
+    <div class="mb-3">
+        <label for="invitmedt__type" class="form-label">Type *</label>
+        <select class="form-control" id="invitmedt__type">
+            <option value="">Select type</option>
+            <option value="RAW">Raw Material</option>
+            <option value="WIP">Work in Progress</option>
+            <option value="FINISHED">Finished Product</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="invitmedt__quantity" class="form-label">Quantity *</label>
+        <input type="number" step="0.001" class="form-control" id="invitmedt__quantity">
+    </div>
+
+    <div class="mb-3">
+        <label for="invitmedt__location" class="form-label">Location *</label>
+        <rpc-select 
+            id="invitmedt__location"
+            module="app/inventory/location"
+            function="findByNameOrCode"
+            value-field="id"
+            label-field="name"
+            placeholder="Select location">
+        </rpc-select>
+    </div>
+
+    <div class="mb-3">
+        <label for="invitmedt__lot" class="form-label">Lot</label>
+        <input type="text" class="form-control" id="invitmedt__lot" disabled placeholder="Lot selection not implemented yet">
+    </div>
+
+    <div class="mb-3">
+        <label for="invitmedt__vendor" class="form-label">Vendor</label>
+        <rpc-select 
+            id="invitmedt__vendor"
+            module="app/masterdata/vendor"
+            function="findByNameOrCode"
+            value-field="id"
+            label-field="name"
+            placeholder="Select vendor (optional)">
+        </rpc-select>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 mb-3">
+            <label for="invitmedt__price" class="form-label">Price</label>
+            <input type="number" step="0.01" class="form-control" id="invitmedt__price">
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="invitmedt__currency" class="form-label">Currency</label>
+            <select class="form-control" id="invitmedt__currency">
+                <option value="USD">USD</option>
+                <option value="ARS">ARS</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="invitmedt__expiration" class="form-label">Expiration Date</label>
+        <input type="datetime-local" class="form-control" id="invitmedt__expiration">
+    </div>
+
+    <div class="flex flex-row flex-justify-between flex-align-center">
+        <button id="invitmedt__delete" class="button link" style="color: var(--danger);">Delete</button>
+        <loading-button id="invitmedt__submit" classes="mt-2">Save</loading-button>
+    </div>
+</div>

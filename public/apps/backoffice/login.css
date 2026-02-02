@@ -1,0 +1,36 @@
+@import "../../css/variables.css";
+@import "../../css/reset.css";
+@import "../../css/fonts.css";
+@import "../../css/spinner.css";
+
+@import "../../css/utils/borders.css";
+@import "../../css/utils/buttons.css";
+@import "../../css/utils/colors.css";
+@import "../../css/utils/container.css";
+@import "../../css/utils/debug.css";
+@import "../../css/utils/display.css";
+@import "../../css/utils/flexbox.css";
+@import "../../css/utils/font.css";
+@import "../../css/utils/forms.css";
+@import "../../css/utils/grid.css";
+@import "../../css/utils/overflow.css";
+@import "../../css/utils/sizing.css";
+@import "../../css/utils/spacing.css";
+@import "../../css/utils/position.css";
+@import "../../css/utils/stacks.css";
+
+body {
+  margin:0;
+  height:100vh; /* use 100% of the height of the viewport */
+  display:grid;             
+  place-items: center;
+  background-image: url(/images/logo.svg); 
+  background-size:cover; 
+  background-repeat: no-repeat;
+}
+
+.login-navigation-link {
+  color: var(--gray-800);
+}
+
+

@@ -1,0 +1,23 @@
+<div aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item" aria-current="page">
+            Material Planning
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+            Planned Supply
+        </li>
+    </ol>
+</div>
+
+<div class="container-xl">
+    <div class="p-3 border">
+        <div class="vstack">
+            <div class="hstack flex-align-center mb-3">
+                <forms-search id="matpls__search" placeholder="Search" width="100%"></forms-search>
+                <a href="/material_planning/planned_supply/edit" class="button link" router-link>Add Planned Supply</a>
+            </div>
+
+            <div id="matpls__table"></div>
+        </div>
+    </div>
+</div>

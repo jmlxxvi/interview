@@ -1,0 +1,10 @@
+{
+    "recommendations": [
+        "github.copilot",
+        "github.copilot-chat",
+        "ms-ossdata.vscode-pgsql",
+        "standard.vscode-standard",
+        "usernamehw.errorlens",
+        "whtouche.vscode-js-console-utils"
+    ]
+}

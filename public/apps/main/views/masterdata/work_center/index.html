@@ -1,0 +1,23 @@
+<div aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item" aria-current="page">
+            Master Data
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+            Work Centers
+        </li>
+    </ol>
+</div>
+
+<div class="container-xl">
+    <div class="p-3 border">
+        <div class="vstack">
+            <div class="hstack flex-align-center mb-3">
+                <forms-search id="mdawc__search" placeholder="Search" width="100%"></forms-search>
+                <a href="/masterdata/work_center/edit" class="button link" router-link>Add Work Center</a>
+            </div>
+
+            <div id="mdawc__table"></div>
+        </div>
+    </div>
+</div>

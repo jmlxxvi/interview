@@ -1,0 +1,172 @@
+.app-container {
+    width: 100%;
+    display: flex;
+    height: 100dvh;
+    position: relative;
+    flex-direction: column;
+    max-width: calc(1140px + 250px); /* This is the sidebar width plus the main content width container-xl*/
+    /* background-color: #f5f5f5; */
+}
+
+/* Header styles */
+
+.app-header,
+.app-footer {
+    align-items: center;
+    background-color: #fff;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: row;
+    height: 60px;
+    justify-content: space-between;
+    z-index: 100;
+}
+
+.app-header {
+    border-bottom: 1px solid var(--gray-300);
+    padding: 0 1rem;
+}
+
+.app-footer {
+    border-top: 1px solid var(--gray-300);
+    padding: 0 1rem;
+
+}
+
+.app-footer div {
+    width: 24px;
+    height: 24px;
+
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+}
+
+.app-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+.app-subtitle {
+    font-size: .8rem;
+    font-weight: 300;
+}
+
+.menu-toggle {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #555;
+    display: none;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+/* Main content styles */
+.app-main {
+    flex: 1 1 auto;
+    /* margin-top: 60px; */
+    margin-left: 250px;
+    /* padding: 1rem; */
+    transition: margin-left 0.3s ease;
+    overflow: hidden;
+}
+
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .app-sidebar {
+        transform: translateX(-100%);
+    }
+
+    .app-sidebar.open {
+        transform: translateX(0);
+    }
+
+    .app-main {
+        margin-left: 0;
+        /* padding: .5rem; */
+    }
+}
+
+/* SVG menu button changes */
+.menu-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #555;
+    display: none;
+    padding: 8px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.menu-toggle:hover {
+    background-color: #f0f0f0;
+}
+
+.menu-toggle svg {
+    width: 1.75rem;
+    height: 1.75rem;
+    vertical-align: middle;
+}
+
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.view {
+    display: none;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Loading Screen Styles */
+#loading-screen {
+    /* position: fixed;
+    top: 0;
+    left: 0; */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease-out;
+    background-color: white;
+}
+
+.loader {
+    width: 80px;
+    height: 80px;
+    border: 8px solid var(--gray-200);
+    border-radius: 50%;
+    border-top: 8px solid var(--gray-900);
+    animation: spin 1.5s linear infinite;
+    margin-bottom: 30px;
+}
+
+
+/* Animations */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

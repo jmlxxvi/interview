@@ -1,0 +1,53 @@
+:root {
+
+    /* Grays */
+    --gray-100: #f8f9fa;
+    --gray-200: #e9ecef;
+    --gray-300: #dee2e6;
+    --gray-400: #ced4da;
+    --gray-500: #adb5bd;
+    --gray-600: #6c757d;
+    --gray-700: #495057;
+    --gray-800: #343a40;
+    --gray-900: #212529;
+
+    /* Black and white */
+    --black: #000;
+    --white: #fff;
+
+    /* Primary */
+    --primary: var(--gray-900);
+
+    /* Secondary */
+    --secondary: #6c757d;
+
+    /* Success */
+    --success: #198754;
+
+    /* Info */
+    --info: #0dcaf0;
+
+    /* Warning */
+    --warning: #ffc107;
+
+    /* Danger */
+    --danger: #dc3545;
+
+    /* Light */
+    --light: #f8f9fa;
+
+    /* Dark */
+    --dark: #212529;
+
+    --border-width: 1px;
+    --border-radius: 0;
+    --border-radius-lg: 8px;
+    --border-radius-sm: 2px;
+    --border-color: var(--gray-300);
+
+    --background-color: var(--white);
+
+    /* Max view width */
+    --max-view-width: 1024px;
+
+}

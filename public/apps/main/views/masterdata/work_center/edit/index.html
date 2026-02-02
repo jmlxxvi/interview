@@ -1,0 +1,40 @@
+<div aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item" aria-current="page">
+            Master Data
+        </li>
+        <li class="breadcrumb-item">
+            <a href="masterdata/work_center" router-link>Work Centers</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+            Edit Work Center
+        </li>
+    </ol>
+</div>
+
+<div class="container-xl">
+    <div class="mb-3">
+        <label for="mdawcedt__code" class="form-label">Code</label>
+        <input type="text" class="form-control" id="mdawcedt__code">
+    </div>
+
+    <div class="mb-3">
+        <label for="mdawcedt__name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="mdawcedt__name">
+    </div>
+
+    <div class="mb-3">
+        <label for="mdawcedt__location" class="form-label">Location</label>
+        <input type="text" class="form-control" id="mdawcedt__location">
+    </div>
+
+    <div class="mb-3">
+        <label for="mdawcedt__description" class="form-label">Description</label>
+        <textarea class="form-control" id="mdawcedt__description" rows="3"></textarea>
+    </div>
+
+    <div class="flex flex-row flex-justify-between flex-align-center">
+        <button id="mdawcedt__delete" class="button link" style="color: var(--danger);">Delete</button>
+        <loading-button id="mdawcedt__submit" classes="mt-2">Save</loading-button>
+    </div>
+</div>

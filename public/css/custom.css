@@ -1,0 +1,2 @@
+a { background-color: transparent; color: var(--gray-900); text-decoration: underline; padding: 0; border: none; }
+a:hover { background-color: transparent; filter: none; text-decoration: none; }

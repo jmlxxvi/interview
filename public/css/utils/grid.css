@@ -1,0 +1,205 @@
+/* 
+Responsive Flexbox-based grid system similar to Bootstrap's.
+
+Container: A .container class to wrap the grid and set a max width.
+Row: A .row class that uses display: flex to align columns.
+Columns: .col classes that define widths (e.g., .col-6 for 50% width).
+Breakpoints: Use media queries (col-sm-*, col-md-*, etc.) for responsiveness.
+
+<div class="container">
+  <div class="row g-3">
+    <div class="col-4">Column 1</div>
+    <div class="col-4 offset-2">Column 2 (Offset by 2 columns)</div>
+  </div>
+
+  <div class="row g-2">
+    <div class="col-auto">Auto-sized Column 1</div>
+    <div class="col-auto">Auto-sized Column 2</div>
+  </div>
+</div>
+*/
+
+/* 1. Row */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -15px;
+    /* Negative margin for gutters */
+    margin-right: -15px;
+}
+
+/* 2. Columns (Base) */
+[class^="col-"] {
+    padding: 15px;
+    flex: 1;
+    box-sizing: border-box;
+}
+
+/* 3. Column Sizing */
+.col-1 {
+    flex: 0 0 8.33%;
+    max-width: 8.33%;
+}
+
+.col-2 {
+    flex: 0 0 16.66%;
+    max-width: 16.66%;
+}
+
+.col-3 {
+    flex: 0 0 25%;
+    max-width: 25%;
+}
+
+.col-4 {
+    flex: 0 0 33.33%;
+    max-width: 33.33%;
+}
+
+.col-5 {
+    flex: 0 0 41.66%;
+    max-width: 41.66%;
+}
+
+.col-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+
+.col-7 {
+    flex: 0 0 58.33%;
+    max-width: 58.33%;
+}
+
+.col-8 {
+    flex: 0 0 66.66%;
+    max-width: 66.66%;
+}
+
+.col-9 {
+    flex: 0 0 75%;
+    max-width: 75%;
+}
+
+.col-10 {
+    flex: 0 0 83.33%;
+    max-width: 83.33%;
+}
+
+.col-11 {
+    flex: 0 0 91.66%;
+    max-width: 91.66%;
+}
+
+.col-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+
+/* 4. Responsive Breakpoints */
+@media (max-width: 992px) {
+    .col-md-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+
+    .col-md-12 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .col-sm-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+
+    .col-sm-12 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .col-xs-12 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+/* 5. Gutter Spacing */
+.g-0 .row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.g-0 [class^="col-"] {
+    padding: 0;
+}
+
+.g-1 [class^="col-"] {
+    padding: 5px;
+}
+
+.g-2 [class^="col-"] {
+    padding: 10px;
+}
+
+.g-3 [class^="col-"] {
+    padding: 15px;
+}
+
+.g-4 [class^="col-"] {
+    padding: 20px;
+}
+
+/* 6. Offsets */
+.offset-1 {
+    margin-left: 8.33%;
+}
+
+.offset-2 {
+    margin-left: 16.66%;
+}
+
+.offset-3 {
+    margin-left: 25%;
+}
+
+.offset-4 {
+    margin-left: 33.33%;
+}
+
+.offset-5 {
+    margin-left: 41.66%;
+}
+
+.offset-6 {
+    margin-left: 50%;
+}
+
+.offset-7 {
+    margin-left: 58.33%;
+}
+
+.offset-8 {
+    margin-left: 66.66%;
+}
+
+.offset-9 {
+    margin-left: 75%;
+}
+
+.offset-10 {
+    margin-left: 83.33%;
+}
+
+.offset-11 {
+    margin-left: 91.66%;
+}
+
+/* 8. Auto Columns */
+.col-auto {
+    flex: 1;
+}

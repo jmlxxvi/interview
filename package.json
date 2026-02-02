@@ -1,0 +1,48 @@
+{
+  "name": "factory",
+  "version": "1.0.0",
+  "main": "server/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --env-file=.env --watch-path=server --watch-path=public server/index.js",
+    "start": "node --env-file=.env server/index.js",
+    "lint": "standard",
+    "lint:fix": "standard --fix",
+    "test:env": "node --env-file=.env node_modules/.bin/playwright test",
+    "test:smoke": "node --env-file=.env node_modules/.bin/playwright test tests/smoke",
+    "test:e2e": "node --env-file=.env node_modules/.bin/playwright test tests/e2e",
+    "test:e2e:headed": "SLOW_MO=500 node --env-file=.env node_modules/.bin/playwright test tests/e2e --headed"
+  },
+  "keywords": [],
+  "author": "Juan Martín Guillén",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "commander": "^14.0.0",
+    "compression": "^1.8.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "multer": "^2.0.1",
+    "nodemailer": "^7.0.4",
+    "pg": "^8.16.3",
+    "qrcode": "^1.5.4",
+    "redis": "^5.10.0",
+    "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "@types/node": "^25.0.3",
+    "standard": "^17.1.2"
+  },
+  "standard": {
+    "env": [
+      "browser",
+      "node"
+    ],
+    "ignore": [
+      "public/vendor/",
+      "docs/",
+      "scripts/"
+    ]
+  }
+}

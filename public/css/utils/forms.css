@@ -1,0 +1,78 @@
+/* Form Controls */
+.form-control {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--dark);
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+}
+
+/* .form-control:focus {
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+} */
+
+.form-control[disabled],
+.form-control[readonly] {
+    background-color: var(--gray-100);
+}
+
+.form-control::placeholder {
+    color: #6c757d;
+}
+
+/* Labels */
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+/* Input Group */
+.input-group {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+}
+
+.input-group .form-control {
+    flex: 1 1 auto;
+    width: 100%;
+}
+
+/* Checkboxes and Radios */
+
+/* Horizontal form group */
+.form-group.horizontal {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Checkbox/Radio with label horizontal layout */
+.form-check {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.form-check-input {
+    margin: 0;
+}
+
+.form-check-label {
+    margin-bottom: 0;
+}
+
+.form-required::after {
+    content: "*";
+    color: var(--danger);
+    margin-left: 4px;
+    font-weight: bold;
+}

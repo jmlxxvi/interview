@@ -1,0 +1,17 @@
+**/node_modules/**
+node_modules/**
+keys/
+api/uploads/
+certs/
+storage/
+.build
+scripts/db2crud/output
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+/tests/output/
+/tests/reports/

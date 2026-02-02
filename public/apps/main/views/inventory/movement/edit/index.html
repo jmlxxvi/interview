@@ -1,0 +1,81 @@
+<div aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="inventory/movement" router-link>Inventory Movements</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+            <span id="invmovedt__breadcrumb">New movement</span>
+        </li>
+    </ol>
+</div>
+
+<div class="container-xl">
+
+    <div class="mb-3">
+        <label for="invmovedt__movement_type" class="form-label">Movement Type *</label>
+        <select class="form-control" id="invmovedt__movement_type">
+            <option value="">Select type</option>
+            <option value="RECEIPT">Receipt - Receiving inventory</option>
+            <option value="TRANSFER">Transfer - Moving between locations</option>
+            <option value="ISSUE">Issue - Consuming for production</option>
+            <option value="RETURN">Return - Returning to inventory</option>
+            <option value="ADJUSTMENT">Adjustment - Inventory correction</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="invmovedt__inventory_item" class="form-label">Inventory Item</label>
+        <input type="text" class="form-control" id="invmovedt__inventory_item" disabled placeholder="Item selection not implemented yet">
+    </div>
+
+    <div class="mb-3">
+        <label for="invmovedt__quantity" class="form-label">Quantity *</label>
+        <input type="number" step="0.001" class="form-control" id="invmovedt__quantity">
+    </div>
+
+    <div class="mb-3">
+        <label for="invmovedt__source_location" class="form-label">Source Location</label>
+        <rpc-select 
+            id="invmovedt__source_location"
+            module="app/inventory/location"
+            function="findByNameOrCode"
+            value-field="id"
+            label-field="name"
+            placeholder="Select source location (optional)">
+        </rpc-select>
+    </div>
+
+    <div class="mb-3">
+        <label for="invmovedt__destination_location" class="form-label">Destination Location</label>
+        <rpc-select 
+            id="invmovedt__destination_location"
+            module="app/inventory/location"
+            function="findByNameOrCode"
+            value-field="id"
+            label-field="name"
+            placeholder="Select destination location (optional)">
+        </rpc-select>
+    </div>
+
+    <div class="mb-3">
+        <label for="invmovedt__work_order" class="form-label">Work Order</label>
+        <rpc-select 
+            id="invmovedt__work_order"
+            module="app/planning/work_order"
+            function="listAll"
+            value-field="id"
+            label-field="code"
+            placeholder="Select work order (optional)">
+        </rpc-select>
+    </div>
+
+    <div class="mb-3">
+        <label for="invmovedt__reason" class="form-label">Reason</label>
+        <textarea class="form-control" id="invmovedt__reason" rows="3" placeholder="Enter reason for this movement"></textarea>
+    </div>
+
+    <div class="flex flex-row flex-justify-between flex-align-center">
+        <button id="invmovedt__delete" class="button link" style="color: var(--danger);">Delete</button>
+        <loading-button id="invmovedt__submit" classes="mt-2">Save</loading-button>
+    </div>
+</div>

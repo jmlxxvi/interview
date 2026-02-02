@@ -1,0 +1,67 @@
+<div aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item" aria-current="page">
+            Master Data
+        </li>
+        <li class="breadcrumb-item">
+            <a href="masterdata/unit_of_measure" router-link>Units of Measure</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+            Edit Unit
+        </li>
+    </ol>
+</div>
+
+<div class="container-xl">
+    <div class="mb-3">
+        <label for="mdauomedt__code" class="form-label">Code</label>
+        <input type="text" class="form-control" id="mdauomedt__code" maxlength="10">
+    </div>
+
+    <div class="mb-3">
+        <label for="mdauomedt__name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="mdauomedt__name" maxlength="50">
+    </div>
+
+    <div class="mb-3">
+        <label for="mdauomedt__category" class="form-label">Category</label>
+        <select class="form-control" id="mdauomedt__category">
+            <option value="">Select category</option>
+            <option value="Weight">Weight</option>
+            <option value="Volume">Volume</option>
+            <option value="Length">Length</option>
+            <option value="Count">Count</option>
+            <option value="Time">Time</option>
+            <option value="Temperature">Temperature</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="mdauomedt__is_base" class="form-label">
+            <toggle-switch id="mdauomedt__is_base">
+            Is Base Unit
+        </label>
+    </div>
+
+    <div class="mb-3" id="mdauomedt__base_unit_section">
+        <label for="mdauomedt__base_unit" class="form-label">Base Unit</label>
+        <select class="form-control" id="mdauomedt__base_unit">
+            <option value="">Select base unit</option>
+        </select>
+    </div>
+
+    <div class="mb-3" id="mdauomedt__conversion_section">
+        <label for="mdauomedt__conversion_factor" class="form-label">Conversion Factor</label>
+        <input type="number" class="form-control" id="mdauomedt__conversion_factor" step="0.0000000001" value="1">
+    </div>
+
+    <div class="mb-3">
+        <label for="mdauomedt__description" class="form-label">Description</label>
+        <textarea class="form-control" id="mdauomedt__description" rows="3"></textarea>
+    </div>
+
+    <div class="flex flex-row flex-justify-between flex-align-center">
+        <button id="mdauomedt__delete" class="button link" style="color: var(--danger);">Delete</button>
+        <loading-button id="mdauomedt__submit" classes="mt-2">Save</loading-button>
+    </div>
+</div>

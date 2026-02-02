@@ -1,0 +1,45 @@
+<div aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item" aria-current="page">
+            Master Data
+        </li>
+        <li class="breadcrumb-item">
+            <a href="masterdata/equipment" router-link>Equipment</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+            Edit Equipment
+        </li>
+    </ol>
+</div>
+
+<div class="container-xl">
+    <div class="mb-3">
+        <label for="mdaeqpedt__code" class="form-label">Code</label>
+        <input type="text" class="form-control" id="mdaeqpedt__code" maxlength="50">
+    </div>
+
+    <div class="mb-3">
+        <label for="mdaeqpedt__name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="mdaeqpedt__name" maxlength="100">
+    </div>
+
+    <div class="mb-3">
+        <label for="mdaeqpedt__work_center" class="form-label">Work Center</label>
+        <select class="form-control" id="mdaeqpedt__work_center">
+            <option value="">Select work center</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="mdaeqpedt__status" class="form-label">Status</label>
+        <select class="form-control" id="mdaeqpedt__status">
+            <option value="AVAILABLE">Available</option>
+            <option value="UNAVAILABLE">Unavailable</option>
+        </select>
+    </div>
+
+    <div class="flex flex-row flex-justify-between flex-align-center">
+        <button id="mdaeqpedt__delete" class="button link" style="color: var(--danger);">Delete</button>
+        <loading-button id="mdaeqpedt__submit" classes="mt-2">Save</loading-button>
+    </div>
+</div>

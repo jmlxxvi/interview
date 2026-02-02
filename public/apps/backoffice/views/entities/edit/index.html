@@ -1,0 +1,40 @@
+<div aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="/entities" router-link>Entidades</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+            Editar entidad
+        </li>
+    </ol>
+</div>
+
+<div class="container-xl">
+    <!-- <h4 id="entities_edit__entity_name" class="mb-1"></h4>
+    <h5 id="entities_edit__entity_id" class="mb-2"></h5> -->
+
+    <div class="mb-3">
+        <label for="entities_edit__entity_id" class="form-label">CUIT</label>
+        <input type="text" class="form-control" id="entities_edit__entity_id">
+    </div>
+
+    <div class="mb-3">
+        <label for="entities_edit__entity_name" class="form-label">Nombre de la entidad</label>
+        <input type="text" class="form-control" id="entities_edit__entity_name">
+    </div>
+
+    <div class="mb-3">
+        <label for="entities_edit__contact_name" class="form-label">Nombre del contacto</label>
+        <input type="text" class="form-control" id="entities_edit__contact_name">
+    </div>
+
+    <div class="mb-3">
+        <label for="entities_edit__contact_email" class="form-label">Correo electrónico</label>
+        <input type="text" class="form-control" id="entities_edit__contact_email">
+    </div>
+
+    <div class="flex flex-row flex-justify-between flex-align-center">
+        <button id="entities_edit__delete" class="button link" style="color: var(--danger);">Eliminar</button>
+        <loading-button id="entities_edit__submit" classes="mt-2">Guardar</loading-button>
+    </div>
+</div>

@@ -1,0 +1,178 @@
+<style>
+    .tablex {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 30px;
+    }
+    .tablex th, .tablex td {
+        border: 1px solid #ddd;
+        padding: 8px 12px;
+        text-align: center;
+    }
+    .tablex th {
+        background-color: #f2f2f2;
+        color: #333;
+        font-weight: bold;
+    }
+    .metric-col {
+        text-align: left;
+        background-color: #e8f0ff;
+        font-weight: bold;
+    }
+    /* Style for the constraint rows */
+    .constraint-row td {
+        background-color: #e6e6e6; 
+        font-style: italic;
+    }
+    .header-params th {
+        background-color: #d1e7dd; 
+    }
+    .highlight-release {
+        background-color: #ffcccc; 
+    }
+    .highlight-receipt {
+        background-color: #ccffcc; 
+    }
+</style>
+
+<div aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item" aria-current="page">
+            Material Planning
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+            Projected Inventory
+        </li>
+    </ol>
+</div>
+
+<div class="container-xl">
+    <div class="p-3 border">
+
+        
+
+        <div class="vstack">
+            <div class="hstack flex-align-center mb-3">
+                <h3>MRP for Flour (Lot-for-Lot)</h3>
+                <a href="/masterdata/equipment/edit" class="button link" router-link>Select product</a>
+            </div>
+
+            <table class="tablex">
+                <thead>
+                    <tr class="header-params">
+                        <th colspan="3">Beginning Inventory (Week 1)</th>
+                        <th colspan="2">Lead Time</th>
+                        <th colspan="4">Lot Size Rule</th>
+                    </tr>
+                    <tr class="header-params">
+                        <td colspan="3">100 kg</td>
+                        <td colspan="2">2 Weeks</td>
+                        <td colspan="4">Lot-for-Lot (LFL)</td>
+                    </tr>
+                    <tr>
+                        <th class="metric-col">MRP Metric</th>
+                        <th>Week 1</th>
+                        <th>Week 2</th>
+                        <th>Week 3</th>
+                        <th>Week 4</th>
+                        <th>Week 5</th>
+                        <th>Week 6</th>
+                        <th>Week 7</th>
+                        <th>Week 8</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="constraint-row">
+                        <td class="metric-col">Safety Stock (kg)</td>
+                        <td>50</td>
+                        <td>50</td>
+                        <td>50</td>
+                        <td>50</td>
+                        <td>50</td>
+                        <td>50</td>
+                        <td>50</td>
+                        <td>50</td>
+                    </tr>
+                    <tr class="constraint-row">
+                        <td class="metric-col" style="text-align: left;">Lot Size (kg)</td>
+                        <td>LFL</td>
+                        <td>LFL</td>
+                        <td>LFL</td>
+                        <td>LFL</td>
+                        <td>LFL</td>
+                        <td>LFL</td>
+                        <td>LFL</td>
+                        <td>LFL</td>
+                    </tr>
+                    <tr>
+                        <td class="metric-col" style="text-align: left;">1. Gross Requirements (kg)</td>
+                        <td>80</td>
+                        <td>120</td>
+                        <td>100</td>
+                        <td>150</td>
+                        <td>110</td>
+                        <td>90</td>
+                        <td>140</td>
+                        <td>100</td>
+                    </tr>
+                    <tr>
+                        <td class="metric-col" style="text-align: left;">2. Scheduled Receipts (kg)</td>
+                        <td>0</td>
+                        <td class="highlight-receipt">300</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td class="metric-col" style="text-align: left;">3. Projected Available Balance (kg)</td>
+                        <td>20</td>
+                        <td>200</td>
+                        <td>100</td>
+                        <td>0</td>
+                        <td class="highlight-release">-110</td>
+                        <td class="highlight-release">-200</td>
+                        <td class="highlight-release">-340</td>
+                        <td class="highlight-release">-440</td>
+                    </tr>
+                    <tr>
+                        <td class="metric-col" style="text-align: left;">4. Net Requirements (kg)</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>50</td>
+                        <td>110</td>
+                        <td>90</td>
+                        <td>140</td>
+                        <td>100</td>
+                    </tr>
+                    <tr>
+                        <td class="metric-col" style="text-align: left;">5. Planned Order Receipt (kg) (LFL)</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td class="highlight-receipt">50</td>
+                        <td class="highlight-receipt">110</td>
+                        <td class="highlight-receipt">90</td>
+                        <td class="highlight-receipt">140</td>
+                        <td class="highlight-receipt">100</td>
+                    </tr>
+                    <tr>
+                        <td class="metric-col" style="text-align: left;">6. Planned Order Release (kg) (LFL)</td>
+                        <td>0</td>
+                        <td>50</td>
+                        <td>110</td>
+                        <td>90</td>
+                        <td>140</td>
+                        <td>100</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

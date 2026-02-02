@@ -1,0 +1,32 @@
+<div aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="inventory/location" router-link>Inventory Locations</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+            Edit location
+        </li>
+    </ol>
+</div>
+
+<div class="container-xl">
+
+    <div class="mb-3">
+        <div id="invlocedt__code" style="font-size: 1.4rem; font-weight: bold;"></div>
+    </div>
+
+    <div class="mb-3">
+        <label for="invlocedt__name" class="form-label">Location name</label>
+        <input type="text" class="form-control" id="invlocedt__name">
+    </div>
+
+    <div class="mb-3">
+        <label for="invlocedt__description" class="form-label">Description</label>
+        <textarea class="form-control" id="invlocedt__description" rows="3"></textarea>
+    </div>
+
+    <div class="flex flex-row flex-justify-between flex-align-center">
+        <button id="invlocedt__delete" class="button link" style="color: var(--danger);">Delete</button>
+        <loading-button id="invlocedt__submit" classes="mt-2">Save</loading-button>
+    </div>
+</div>

@@ -1,0 +1,34 @@
+/* Stack Helpers (Flexbox-based spacing) */
+.vstack {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.hstack {
+    display: flex;
+    flex-direction: row;
+    /* align-items: center; */
+    justify-content: space-between;
+}
+
+/* Examples 
+
+<div class="vstack gap-3">
+  <div class="bg-light border">First item</div>
+  <div class="bg-light border">Second item</div>
+  <div class="bg-light border">Third item</div>
+</div>
+
+<div class="hstack gap-3">
+  <div class="bg-light border">First item</div>
+  <div class="bg-light border">Second item</div>
+  <div class="bg-light border">Third item</div>
+</div>
+
+<div class="vstack gap-2 col-5 mx-auto debug">
+    <button type="button" class="button secondary">Save changes</button>
+    <button type="button" class="button primary">Cancel</button>
+</div>
+
+*/

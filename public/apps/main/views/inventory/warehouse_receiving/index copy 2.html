@@ -1,0 +1,90 @@
+<div aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">
+            Warehouse Receiving
+        </li>
+    </ol>
+</div>
+
+<div class="container-xl">
+    <div class="p-3 border">
+        <h4 class="mb-4">Receive Inventory</h4>
+
+        <div class="mb-3">
+            <label class="form-label form-required">Product</label>
+            <div class="hstack flex-align-center flex-justify-between">
+                <div id="invrcv__product" style="font-size: 1.2rem;">No product selected</div>
+                <a href="#" id="invrcv__select_product" class="button link">Select product</a>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="invrcv__type" class="form-label form-required">Inventory Type</label>
+            <select class="form-control" id="invrcv__type">
+                <option value="RAW">Raw Material</option>
+                <option value="WIP">Work in Progress</option>
+                <option value="FINISHED">Finished Product</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="invrcv__lot_code" class="form-label form-required">Lot Code</label>
+            <input type="text" class="form-control" id="invrcv__lot_code" placeholder="Enter lot code">
+            <small class="form-text text-muted">If lot doesn't exist, it will be created automatically</small>
+        </div>
+
+        <div class="mb-3">
+            <label for="invrcv__quantity" class="form-label form-required">Quantity</label>
+            <input type="number" step="0.001" class="form-control" id="invrcv__quantity" placeholder="Enter quantity">
+        </div>
+
+        <div class="mb-3">
+            <label for="invrcv__location" class="form-label form-required">Destination Location</label>
+            <rpc-select id="invrcv__location" mod="app/inventory/location" fun="findAll" value-field="id"
+                label-field="name" placeholder="Select warehouse location">
+            </rpc-select>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-6 mb-3">
+                <label for="invrcv__expiration" class="form-label">Expiration Date</label>
+                <date-picker id="invrcv__expiration" format="DD Month YYYY" locale="en"></date-picker>
+            </div>
+            <div class="col-6 mb-3">
+                <label for="invrcv__manufacturing" class="form-label">Manufacturing Date</label>
+                <date-picker id="invrcv__manufacturing" format="DD Month YYYY" locale="en"></date-picker>
+                <small class="form-text text-muted">Leave blank if product has no manufacturing date</small>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6 mb-3">
+                <label for="invrcv__price" class="form-label">Unit Price</label>
+                <input type="number" step="0.01" class="form-control" id="invrcv__price" placeholder="0.00">
+            </div>
+            <div class="col-6 mb-3">
+                <label for="invrcv__currency" class="form-label">Currency</label>
+                <select class="form-control" id="invrcv__currency">
+                    <option value="USD">USD</option>
+                    <option value="ARS">ARS</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="alert alert-info">
+            <strong>Note:</strong> This operation will:
+            <ul class="mb-0">
+                <li>Create the lot if it doesn't exist</li>
+                <li>Create or update the inventory item at the specified location</li>
+                <li>Record a RECEIPT movement in inventory history</li>
+            </ul>
+        </div>
+
+        <div class="flex flex-row flex-justify-end flex-align-center mt-4">
+            <button id="invrcv__clear" class="button link mr-3">Clear Form</button>
+            <loading-button id="invrcv__submit">Receive Inventory</loading-button>
+        </div>
+    </div>
+</div>

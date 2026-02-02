@@ -1,0 +1,20 @@
+<div aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">
+            Inventory Locations
+        </li>
+    </ol>
+</div>
+
+<div class="container-xl">
+    <div class="p-3 border">
+        <div class="vstack">
+            <div class="hstack flex-align-center mb-3">
+                <forms-search id="invloc__search" placeholder="Search" width="100%"></forms-search>
+                <a href="/inventory/location/edit" class="button link" router-link>Add location</a>
+            </div>
+
+            <div id="invloc__table"></div>
+        </div>
+    </div>
+</div>

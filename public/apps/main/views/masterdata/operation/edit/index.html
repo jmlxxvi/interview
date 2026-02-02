@@ -1,0 +1,40 @@
+<div aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item" aria-current="page">
+            Master Data
+        </li>
+        <li class="breadcrumb-item">
+            <a href="masterdata/operation" router-link>Operations</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+            Edit Operation
+        </li>
+    </ol>
+</div>
+
+<div class="container-xl">
+    <div class="mb-3">
+        <label for="mdaopedt__code" class="form-label">Code</label>
+        <input type="text" class="form-control" id="mdaopedt__code">
+    </div>
+
+    <div class="mb-3">
+        <label for="mdaopedt__name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="mdaopedt__name">
+    </div>
+
+    <div class="mb-3">
+        <label for="mdaopedt__standard_duration" class="form-label">Standard Duration (minutes)</label>
+        <input type="number" class="form-control" id="mdaopedt__standard_duration" min="0">
+    </div>
+
+    <div class="mb-3">
+        <label for="mdaopedt__description" class="form-label">Description</label>
+        <textarea class="form-control" id="mdaopedt__description" rows="3"></textarea>
+    </div>
+
+    <div class="flex flex-row flex-justify-between flex-align-center">
+        <button id="mdaopedt__delete" class="button link" style="color: var(--danger);">Delete</button>
+        <loading-button id="mdaopedt__submit" classes="mt-2">Save</loading-button>
+    </div>
+</div>

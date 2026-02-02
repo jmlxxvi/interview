@@ -1,0 +1,48 @@
+<div aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="quality/inspection" router-link>Quality Inspections</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+            Edit inspection
+        </li>
+    </ol>
+</div>
+
+<div class="container-xl">
+
+    <div class="mb-3">
+        <label for="qainsedt__batch" class="form-label">Batch</label>
+        <div id="qainsedt__batch"></div>
+    </div>
+
+    <div class="mb-3">
+        <label for="qainsedt__operation" class="form-label">Operation</label>
+        <div id="qainsedt__operation"></div>
+    </div>
+
+    <div class="mb-3">
+        <label for="qainsedt__inspected_by" class="form-label">Inspected By</label>
+        <div id="qainsedt__inspected_by"></div>
+    </div>
+
+    <div class="mb-3">
+        <label for="qainsedt__result" class="form-label">Result</label>
+        <select class="form-control" id="qainsedt__result">
+            <option value="PENDING">Pending</option>
+            <option value="PASS">Pass</option>
+            <option value="FAIL">Fail</option>
+            <option value="REWORK">Rework</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="qainsedt__notes" class="form-label">Notes</label>
+        <textarea class="form-control" id="qainsedt__notes" rows="4"></textarea>
+    </div>
+
+    <div class="flex flex-row flex-justify-between flex-align-center">
+        <button id="qainsedt__delete" class="button link" style="color: var(--danger);">Delete</button>
+        <loading-button id="qainsedt__submit" classes="mt-2">Save</loading-button>
+    </div>
+</div>

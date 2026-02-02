@@ -1,0 +1,15 @@
+.counter1 {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+.counter1 button {
+    height: 2rem;
+    width: 2rem;
+    background-color: var(--primary);
+    border: none;
+    color: white;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+}

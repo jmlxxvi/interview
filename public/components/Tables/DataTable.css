@@ -1,0 +1,80 @@
+.component--datatable-table-container {
+    overflow-x: auto;
+}
+
+.component--datatable-table {
+    width: 100%;
+    /* border-width: var(--border-width);
+    border-style: var(--border-style);
+    border-color: var(--border-color);
+    border-radius: var(--border-radius); */
+}
+
+.component--datatable-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+
+/* table table-striped border  */
+
+.component--datatable-table-align-left {
+    text-align: start;
+}
+
+.component--datatable-table-align-center {
+    text-align: center;
+}
+
+.component--datatable-table-align-right {
+    text-align: end;
+}
+
+.component--datatable-table tbody tr:nth-of-type(2n) {
+    background-color: var(--gray-100);
+}
+
+@media (max-width: 576px) {
+    .component--datatable-header {
+        /* display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem; */
+        flex-direction: column;
+    }
+
+    .component--datatable-header>div {
+        /* width: 100%; */
+        margin-bottom: 1rem;
+    }
+
+    .component--datatable-header>div {
+        /* width: 100%; */
+        margin-bottom: 1rem;
+    }
+
+    .component--datatable-header-action {
+        width: 14.75rem;
+
+    }
+
+    .component--datatable-table thead th {
+        display: none;
+    }
+
+
+    .component--datatable-table tbody td {
+        display: grid;
+        text-align: left;
+        /* border-bottom: 0px; */
+    }
+
+    .component--datatable-table tbody td::before {
+        content: attr(data-cell);
+        font-size: .75rem;
+        color: var(--gray-600);
+    }
+
+
+}

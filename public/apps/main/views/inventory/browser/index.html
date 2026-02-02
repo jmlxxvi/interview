@@ -1,0 +1,62 @@
+<div aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">
+            Inventory Browser
+        </li>
+    </ol>
+</div>
+
+<div class="container-xl">
+    <div class="tabs">
+        <div class="tab-headers">
+            <button class="tab-header active" data-tab="invbro__tab1">Items</button>
+            <button class="tab-header" data-tab="invbro__tab2">Movements</button>
+            <button class="tab-header" data-tab="invbro__tab3">Reservations</button>
+        </div>
+
+        <div class="tab-content border">
+            <div class="tab-pane active" id="invbro__tab1">
+                <div class="">
+                    <div class="vstack">
+                        <div class="hstack flex-align-center mb-3">
+                            <forms-search id="invibro__search" placeholder="Search" width="100%"></forms-search>
+                            <!-- <a href="/inventory/item/edit" class="button link" router-link>Add item</a> -->
+                            <div class="hstack">
+                                <span>Is Own</span>
+                                <toggle-switch class=" ml-2" id="invbro__is_own"></toggle-switch>
+                            </div>
+                        </div>
+
+                        <div id="invibro__items_table"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane" id="invbro__tab2">
+                <div class="vstack">
+                    <div class="hstack flex-align-center mb-3">
+                        <forms-search id="invmov__search" placeholder="Search" width="100%"></forms-search>
+                        <!-- <a href="/inventory/movement/edit" class="button link" router-link>Add movement</a> -->
+                    </div>
+
+                    <div id="invbro__movements_table"></div>
+                </div>
+            </div>
+
+            <div class="tab-pane" id="invbro__tab3">
+                <div class="vstack">
+                    <div class="hstack flex-align-center mb-3">
+                        <forms-search id="invres__search" placeholder="Search" width="100%"></forms-search>
+                    </div>
+
+                    <div id="invbro__reservations_table"></div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+</div>

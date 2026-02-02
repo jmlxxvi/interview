@@ -1,0 +1,8 @@
+{
+    "liveServer.settings.port": 5501,
+    "liveServer.settings.root": "/",
+    "workbench.editorAssociations": {
+        "*.svg": "default" //"imagePreview.previewEditor" or "default"
+    },
+    "standard.autoFixOnSave": true
+}

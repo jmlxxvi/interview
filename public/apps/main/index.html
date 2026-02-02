@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factory</title>
+
+    <!-- Manifest -->
+    <!-- <link rel="manifest" href="/manifest.json"> -->
+
+    <!-- Theme -->
+    <meta name="theme-color" content="#212529">
+
+    <!-- iOS specific tags -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-180x180.png">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Factory">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico">
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script type="module" src="/apps/main/index.js" defer></script>
+    <script src="/vendor/chartjs/chart.js"></script>
+
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-left">
+                <a href="/" router-link style="text-decoration: none;">
+                    <img src="/images/logo32.png" alt="" srcset="">
+                </a>
+                <a href="/" router-link style="text-decoration: none;">
+                    <h1 class="app-title font-logo">Factory</h1>
+                </a>
+            </div>
+            <div class="header-right">
+                <div class="spinner"></div>
+                <button class="menu-toggle" id="menuToggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                        class="bi bi-list" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
+                    </svg>
+                </button>
+                <div id="header-plant" style="cursor: pointer;"></div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="app-main">
+            <div id="loading-screen" style="display: none;">
+                <div class="loader"></div>
+            </div>
+            <div id="view_errors_network" class="view" style="display: none;">
+                <div class="p-4">
+                    <h2>Error</h2>
+                    <p id="errors_network_message"></p>
+                </div>
+            </div>
+        </main>
+
+        <!-- <div class="app-footer">
+            footer
+        </div> -->
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="app-sidebar vstack" id="sidebar" style="justify-content: space-between;">
+        <nav class="sidebar-nav"></nav>
+        <div class="vstack">
+            <div id="sidebar-info"></div>
+            <div id="sidebar-logout">
+                <img src="/images/icons/logout.svg" width="24" height="24" />
+                <span>Logout</span>
+            </div>
+        </div>
+    </aside>
+</body>
+
+</html>

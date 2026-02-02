@@ -1,0 +1,2 @@
+.debug .row { outline: 1px solid red; }
+.debug [class^="col-"] { outline: 1px dashed blue; }

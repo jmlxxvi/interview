@@ -1,0 +1,10 @@
+const { test, expect } = require('@playwright/test');
+
+test.beforeEach(async ({ page }) => {
+    await page.goto('http://localhost:3000'); // Update with your app's URL
+});
+
+test('shared fixture example', async ({ page }) => {
+    const title = await page.title();
+    expect(title).toBe('Expected Title'); // Update with expected title
+});

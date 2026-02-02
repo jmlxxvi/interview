@@ -1,0 +1,21 @@
+export default {
+  startY: 120,
+  margin: 25,
+  spacer: 5,
+  tableRowHeight: 20,
+  tabblePadding: 10,
+  leftStart: 25,
+  rightStart: 25,
+  fontSizeTitle: 24,
+  fontSizeSubtitle: 16,
+  fontSizeSection: 16,
+  fontSizeSubsection: 14,
+  fontSizeContents: 12,
+  fontSizeFooter: 10,
+  font: 'Helvetica',
+  fontBold: 'Helvetica-Bold',
+  fontItalic: 'Helvetica-Oblique',
+  fontColorNormal: 'black',
+  fontColorLight: 'gray',
+  fontColorError: 'red'
+}

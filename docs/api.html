@@ -1,0 +1,2416 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="UTF-8">
+      <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.css" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+      <title>Function Documentation</title>
+      <style>
+        body { font-family: sans-serif; margin: 2em; max-width: 800px; }
+        h2 { border-bottom: 1px solid #ccc; padding-bottom: 0.2em; margin-top: 2em; }
+        .function { margin: 1em 0; }
+        ul { margin: 0.5em 0 1em 1em; }
+        pre, code { background: #f7f7f7; padding: 2px 4px; border-radius: 4px; }
+      </style>
+    </head>
+    <body>
+      <h1>Function Documentation</h1>
+        <div class="toc">
+            <h2>Source files</h2>
+            <ul style="margin: 0; padding: 0; list-style: none;"><li><a href="#fn-api_routes/admin/public/api.js">api/routes/admin/public/api.js</a></li>
+<li><a href="#fn-api_routes/auth/public/api.js">api/routes/auth/public/api.js</a></li>
+<li><a href="#fn-api_routes/auth/start/api.js">api/routes/auth/start/api.js</a></li>
+<li><a href="#fn-api_routes/client/auth/api.js">api/routes/client/auth/api.js</a></li>
+<li><a href="#fn-api_routes/client/public/api.js">api/routes/client/public/api.js</a></li>
+<li><a href="#fn-api_routes/examples/qr/api.js">api/routes/examples/qr/api.js</a></li>
+<li><a href="#fn-api_routes/fman/public/api.js">api/routes/fman/public/api.js</a></li>
+<li><a href="#fn-api_routes/shared/certificates/utils.js">api/routes/shared/certificates/utils.js</a></li>
+<li><a href="#fn-api_routes/shared/templates/generic.js">api/routes/shared/templates/generic.js</a></li>
+<li><a href="#fn-api_routes/shared/templates/new_user.js">api/routes/shared/templates/new_user.js</a></li>
+<li><a href="#fn-api_routes/shared/templates/recovery.js">api/routes/shared/templates/recovery.js</a></li>
+<li><a href="#fn-api_routes/shared/utils.js">api/routes/shared/utils.js</a></li>
+<li><a href="#fn-api_routes/test/public/api.js">api/routes/test/public/api.js</a></li></ul>
+        </div>
+      
+      <section id="fn-api_routes/admin/public/api.js">
+        <h2>api/routes/admin/public/api.js</h2>
+        
+        <div class="function" style="border: 1px solid #bfbfbf; padding: 1rem;">
+          <h3>login</h3>
+          <p style="word-break: break-word;">TODO This is an example function to implement login and create a session Example password for 12345678 is "86f7c1b75ed2aa54ab746de39f1e44ffb5395ff568d6bc1053899d37a591b919f32d61bae565e436954177d32f2587fda52149345fe402c7eab3057560409a98.9b619684c92a6684eb0c37d7a60eabd0"</p>
+          <ul style="margin: 0; padding: 0; list-style: none;"><b>Parameters:</b><li><code>args</code> (<i>Object</i>): Function arguments</li><li><code>context</code> (<i>ContextType</i>): Request context</li></ul>
+          <p><b>Returns:</b> (<i>Promise&lt;APIResponseLoginType&gt;</i>) - Result object</p>
+          
+          
+    <details>
+        <summary>Show function code</summary>
+        <pre><code class="language-js">export const login = async (args, context) =&gt; {
+
+    const { exec_id } = context;
+
+    const { email, password, tax_id } = args;
+
+    const query = `
+        select
+            usu.id as &quot;user_id&quot;,
+            usu.is_active as &quot;user_is_active&quot;,
+            usu.is_superadmin as &quot;user_is_superadmin&quot;,
+            usu.full_name as &quot;user_name&quot;,
+            usu.email as &quot;user_email&quot;,
+            usu.password_hash
+        from auth.users usu
+        where 1=1
+        and usu.is_active = true
+        and usu.is_superadmin = true
+        and lower(usu.email) = lower({email})`;
+
+    const user_data = await db.query(query, { email, tax_id });
+
+    if (user_data.length &gt; 0) {
+
+        const { 
+            user_id,
+            user_name,
+            user_email,
+            user_is_active,
+            user_is_superadmin,
+            password_hash,
+        } = user_data[0];
+
+        const password_match = await security.password_compare(password, password_hash);
+
+        if (password_match) {
+
+            log.debug(`User [${email}] password_match`, &quot;auth/public:login&quot;, exec_id);
+
+            const token = session.token();
+
+            await session.create({
+                token,
+                data: {
+                    user_id,
+                    user_name,
+                    user_email,
+                    user_is_active,
+                    user_is_superadmin
+                },
+                exec_id
+            });
+
+            return { error: false, code: 1000, data: { user_name, user_email, token } };
+
+        } else {
+
+            log.debug(`User [${email}] cannot login`, &quot;auth/public:login&quot;, exec_id);
+
+            return { error: true, code: 1004, message: &quot;Unable to login&quot;, data: null };
+
+        }
+
+    } else {
+
+        log.debug(`User [${email}] not found`, &quot;auth/public:login&quot;, exec_id);
+
+        return { error: true, code: 1004, message: &quot;Unable to login&quot;, data: null };
+
+    }
+
+};</code></pre>
+    </details>
+    
+        </div>
+      
+      </section>
+    
+
+      <section id="fn-api_routes/auth/public/api.js">
+        <h2>api/routes/auth/public/api.js</h2>
+        
+        <div class="function" style="border: 1px solid #bfbfbf; padding: 1rem;">
+          <h3>logoff</h3>
+          <p style="word-break: break-word;">(No description)</p>
+          <ul style="margin: 0; padding: 0; list-style: none;"><b>Parameters:</b><li><code>_args</code> (<i>Object</i>): Function arguments</li><li><code>context</code> (<i>ContextType</i>): Request context</li></ul>
+          <p><b>Returns:</b> (<i>Promise&lt;APIResponseLogoffType&gt;</i>) - Result object</p>
+          
+          
+    <details>
+        <summary>Show function code</summary>
+        <pre><code class="language-js">export const logoff = async (_args, context) =&gt; {
+
+    await session.destroy({ token: context.token, exec_id: context.execId });
+
+    return { error: false, code: 1000, data: null };
+
+};</code></pre>
+    </details>
+    
+        </div>
+      
+
+        <div class="function" style="border: 1px solid #bfbfbf; padding: 1rem;">
+          <h3>login</h3>
+          <p style="word-break: break-word;">TODO This is an example function to implement login and create a session Example password for 12345678 is "86f7c1b75ed2aa54ab746de39f1e44ffb5395ff568d6bc1053899d37a591b919f32d61bae565e436954177d32f2587fda52149345fe402c7eab3057560409a98.9b619684c92a6684eb0c37d7a60eabd0"</p>
+          <ul style="margin: 0; padding: 0; list-style: none;"><b>Parameters:</b><li><code>args</code> (<i>Object</i>): Function arguments</li><li><code>context</code> (<i>ContextType</i>): Request context</li></ul>
+          <p><b>Returns:</b> (<i>Promise&lt;APIResponseLoginType&gt;</i>) - Result object</p>
+          
+          
+    <details>
+        <summary>Show function code</summary>
+        <pre><code class="language-js">export const login = async (args, context) =&gt; {
+
+    const { exec_id } = context;
+
+    const { email, password, language } = args;
+
+    if (language) {
+        await db.query(`
+            update auth.user 
+            set language_code = {language}
+            where lower(email) = lower({email})`,
+            { language, email });
+    }
+
+    const query = `
+        select 
+            usr.id,
+            usr.email,
+            usr.first_name,
+            usr.last_name,
+            usr.first_name || &#39; &#39; || usr.last_name as full_name,
+            usr.password_hash,
+            usr.language_code,
+            usr.is_admin,
+            org.id as org_id 
+        from 
+        auth.user usr 
+        join auth.organization org on (usr.org_id = org.id)
+        where lower(usr.email) = lower({email})`;
+
+    const user_data = await db.query(query, { email });
+
+    if (user_data.length &gt; 0) {
+
+        const { id: user_id, email, password_hash: hashpass, org_id, full_name, language_code, is_admin } = user_data[0];
+
+        const password_match = await security.password_compare(password, hashpass);
+
+        if (password_match) {
+
+            log.debug(`User [${email}] password_match`, &quot;auth/public:login&quot;, exec_id);
+
+            const token = session.token();
+
+            await session.create({
+                token,
+                org_id,
+                user_id,
+                data: {
+                    org_id,
+                    email,
+                    full_name,
+                    language_code,
+                    is_admin
+                },
+                exec_id
+            });
+
+            return { error: false, code: 1000, data: { email, token } };
+
+        } else {
+
+            log.debug(`User [${email}] cannot login`, &quot;auth/public:login&quot;, exec_id);
+
+            return { error: true, code: 1004, message: &quot;Unable to login&quot;, data: null };
+
+        }
+
+    } else {
+
+        log.debug(`User [${email}] not found`, &quot;auth/public:login&quot;, exec_id);
+
+        return { error: true, code: 1004, message: &quot;Unable to login&quot;, data: null };
+
+    }
+
+};</code></pre>
+    </details>
+    
+        </div>
+      
+
+        <div class="function" style="border: 1px solid #bfbfbf; padding: 1rem;">
+          <h3>recovery</h3>
+          <p style="word-break: break-word;">Recovers a user's password given an email address.</p>
+          <ul style="margin: 0; padding: 0; list-style: none;"><b>Parameters:</b><li><code>args</code> (<i>Object</i>): The input arguments.</li><li><code>context</code> (<i>Object</i>): The function context.</li></ul>
+          <p><b>Returns:</b> (<i>Promise&lt;Object&gt;</i>) - The response object.</p>
+          
+          
+    <details>
+        <summary>Show function code</summary>
+        <pre><code class="language-js">export const recovery = async (args, context) =&gt; {
+
+    const { exec_id } = context;
+
+    const { email, language } = args;
+
+    const query = `
+        select 
+            usr.id,
+            usr.email,
+            usr.first_name,
+            usr.last_name,
+            usr.first_name || &#39; &#39; || usr.last_name as full_name,
+            usr.password_hash,
+            usr.language_code,
+            org.id as org_id 
+        from 
+        auth.user usr 
+        join auth.organization org on (usr.org_id = org.id)
+        where lower(usr.email) = lower({email})`;
+
+    const user_data = await db.query(query, { email });
+
+    if (user_data.length &gt; 0) {
+
+        const recovery_token = randomHexaString(32);
+
+        const { first_name, last_name } = user_data[0];
+
+        await db.query(`
+            update auth.user 
+            set 
+                recovery_token = {recovery_token}, 
+                recovery_expiration_ts = {recovery_expiration_ts}, 
+                language_code = {language_code}
+            where lower(email) = lower({email})`,
+            {
+                recovery_token,
+                recovery_expiration_ts: timestamp() + 3600 * 1000,
+                language, email
+            }
+        );
+
+        const recovery_url = `https://localhost:8080`;
+
+        const tpl = template(`${first_name} ${last_name}`, `${recovery_url}/login.html?action=recovery&amp;token=${recovery_token}`);
+
+        serviceEmailSend({
+            to: email,
+            subject: &quot;Password recovery&quot;,
+            body: tpl
+        });
+
+        return { error: false, code: 1000, message: &quot;&quot;, data: null };
+
+    } else {
+
+        log.debug(`User [${email}] not found`, &quot;auth/public:recover&quot;, exec_id);
+
+        return { error: false, code: 1004, message: &quot;&quot;, data: null };
+
+    }
+
+};</code></pre>
+    </details>
+    
+        </div>
+      
+
+        <div class="function" style="border: 1px solid #bfbfbf; padding: 1rem;">
+          <h3>reset</h3>
+          <p style="word-break: break-word;">Resets a user's password given a recovery token.</p>
+          <ul style="margin: 0; padding: 0; list-style: none;"><b>Parameters:</b><li><code>args</code> (<i>Object</i>): The input arguments.</li><li><code>context</code> (<i>Object</i>): The function context.</li></ul>
+          <p><b>Returns:</b> (<i>Promise&lt;Object&gt;</i>) - The response object.</p>
+          
+          
+    <details>
+        <summary>Show function code</summary>
+        <pre><code class="language-js">export const reset = async (args, context) =&gt; {
+
+    const { exec_id } = context;
+
+    const { token: recovery_token, password, language } = args;
+    console.log(&#39;token, password1, language: &#39;, recovery_token, password, language);
+
+    const query = `
+        select 
+            usr.recovery_expiration_ts 
+        from 
+        auth.user usr 
+        join auth.organization org on (usr.org_id = org.id)
+        where recovery_token = {recovery_token}`;
+
+    const user_data = await db.query(query, { recovery_token });
+
+    if (user_data.length &gt; 0) {
+
+        const { recovery_expiration_ts } = user_data[0];
+
+        if (recovery_expiration_ts &lt; timestamp()) {
+
+            const password_hash = await security.password_hash(password);
+            console.log(&#39;password_hash: &#39;, password_hash);
+
+            await db.query(`
+                update auth.user 
+                set 
+                    password_hash = {password_hash},
+                    recovery_token = null, 
+                    recovery_expiration_ts = null
+                where recovery_token = {recovery_token}`,
+                { recovery_token, password_hash }
+            );
+
+            return { error: false, code: 1004, message: &quot;Pasword recovered&quot;, data: null };
+
+        } else {
+
+            log.debug(`Expired token`, &quot;auth/public:recover&quot;, exec_id);
+
+            return { error: true, code: 1000, message: &quot;Expired token&quot;, data: null };
+        }
+
+    } else {
+
+        log.debug(`Token not found`, &quot;auth/public:recover&quot;, exec_id);
+
+        return { error: true, code: 1004, message: &quot;Token not found&quot;, data: null };
+
+    }
+
+};</code></pre>
+    </details>
+    
+        </div>
+      
+
+        <div class="function" style="border: 1px solid #bfbfbf; padding: 1rem;">
+          <h3>google_verify</h3>
+          <p style="word-break: break-word;">(No description)</p>
+          
+          
+          
+          
+    <details>
+        <summary>Show function code</summary>
+        <pre><code class="language-js">export const google_verify = async (args, context) =&gt; {
+
+    const { exec_id } = context;
+
+    const { code, language } = args;
+    console.log(&#39;code: &#39;, code);
+
+    const oauthRequestUrl = new URL(process.env.GOOGLE_OAUTH_TOKEN_ENDPOINT);
+
+    const oauthRequestBody = new URLSearchParams({
+        client_id: process.env.GOOGLE_OAUTH_CLIENT_ID,
+        client_secret: process.env.GOOGLE_OAUTH_CLIENT_SECRET,
+        code,
+        grant_type: &quot;authorization_code&quot;,
+        redirect_uri: process.env.GOOGLE_OAUTH_REDIRECT_URI,
+    });
+
+    const oauthResponse = await fetch(oauthRequestUrl, {
+        method: &quot;POST&quot;,
+        headers: { &quot;Content-Type&quot;: &quot;application/x-www-form-urlencoded&quot; },
+        body: oauthRequestBody.toString(),
+    });
+
+    if (!oauthResponse.ok) {
+        return { error: true, code: 1004, message: `OAuth request failed: ${oauthResponse.statusText}`, data: null };
+    }
+
+    const oauthResponseData = await oauthResponse.json();
+
+    const userData = await fetchUserFromIdToken(oauthResponseData.id_token);
+    console.log(&#39;userData: &#39;, userData);
+
+    /* 
+    userData:  {
+        iss: &#39;https://accounts.google.com&#39;,
+        azp: &#39;211175662167-i8kn3pe9l2518jipp3igt5tep30l29cq.apps.googleusercontent.com&#39;,
+        aud: &#39;211175662167-i8kn3pe9l2518jipp3igt5tep30l29cq.apps.googleusercontent.com&#39;,
+        sub: &#39;114248403722376753079&#39;,
+        email: &#39;juanmartinguillen@gmail.com&#39;,
+        email_verified: true,
+        at_hash: &#39;Z38sIqZBIvvVH5Qh4UahxQ&#39;,
+        name: &#39;Juan Martin Guillen&#39;,
+        picture: &#39;https://lh3.googleusercontent.com/a/ACg8ocIYYjJDHGZE-tNSOZ2n1KsOwUx463-ALZ3lQNS8mA-hYsqgvw=s96-c&#39;,
+        given_name: &#39;Juan Martin&#39;,
+        family_name: &#39;Guillen&#39;,
+        iat: 1731419359,
+        exp: 1731422959
+    }
+    */
+
+    if (userData?.email) {
+
+        const { email, given_name, family_name } = userData;
+
+        if (language) {
+            await db.query(`
+                update auth.user 
+                set language_code = {language}
+                where lower(email) = lower({email})`,
+                { language, email });
+        }
+
+        const query = `
+            select 
+                usr.id,
+                usr.email,
+                usr.first_name,
+                usr.last_name,
+                usr.first_name || &#39; &#39; || usr.last_name as full_name,
+                usr.password_hash,
+                usr.language_code,
+                usr.is_admin,
+                org.id as org_id 
+            from 
+            auth.user usr 
+            join auth.organization org on (usr.org_id = org.id)
+            where lower(usr.email) = lower({email})`;
+
+        const user_data = await db.query(query, { email });
+
+        if (user_data.length &gt; 0) {
+
+            const { id: user_id, email, org_id, full_name, language_code, is_admin } = user_data[0];
+
+            log.debug(`User [${email}] password_match`, &quot;auth/public:login&quot;, exec_id);
+
+            const token = session.token();
+
+            await session.create({
+                token,
+                org_id,
+                user_id,
+                data: {
+                    org_id,
+                    email,
+                    full_name,
+                    language_code,
+                    is_admin
+                },
+                exec_id
+            });
+
+            return { error: false, code: 1000, data: { email, token } };
+
+        } else {
+
+            const user_id = uuid();
+            const org_id = &#39;f0292882-d91c-4ef3-aa08-060b8c24b0d1&#39; // TODO create organization for new users or find a way to add them to an existing organization
+
+            await db.insert({
+                table: &quot;auth.user&quot;,
+                values: {
+                    id: user_id,
+                    email,
+                    first_name: userData.given_name,
+                    last_name: userData.family_name,
+                    language_code: language,
+                    is_admin: false,
+                    org_id,
+                    password_hash: &quot;authentication-via-oauth2&quot;,
+                    created_by: user_id,
+                    created_ts: timestamp(true)
+                }
+            });
+
+            const token = session.token();
+
+            await session.create({
+                token,
+                org_id,
+                user_id,
+                data: {
+                    org_id,
+                    email,
+                    full_name: given_name + &#39; &#39; + family_name,
+                    language_code: language,
+                    is_admin: false
+                },
+                exec_id
+            });
+
+            return { error: false, code: 1000, data: { email, token } };
+
+        }
+
+    } else {
+
+        return { error: true, code: 1004, message: &quot;Unable to login&quot;, data: null };
+
+    }
+
+};</code></pre>
+    </details>
+    
+        </div>
+      
+      </section>
+    
+
+      <section id="fn-api_routes/auth/start/api.js">
+        <h2>api/routes/auth/start/api.js</h2>
+        
+        <div class="function" style="border: 1px solid #bfbfbf; padding: 1rem;">
+          <h3>start</h3>
+          <p style="word-break: break-word;">(No description)</p>
+          <ul style="margin: 0; padding: 0; list-style: none;"><b>Parameters:</b><li><code>_args</code> (<i>Object</i>): Function arguments</li><li><code>context</code> (<i>ContextType</i>): Request context</li></ul>
+          <p><b>Returns:</b> (<i>Promise&lt;any&gt;</i>) - Result object</p>
+          
+          
+    <details>
+        <summary>Show function code</summary>
+        <pre><code class="language-js">export const start = async (_args, context) =&gt; {
+
+    const user_data = await session.getAll(context.token);
+    console.log(&#39;user_data: &#39;, user_data);
+
+    // const userPermissions = (await getUserAuthorization(user_data.user_id, user_data.org_id, &quot;MENU&quot;, &quot;view&quot;)).map(e =&gt; e.object_name);
+    const userPermissions = (await getUserAuthorization(user_data.user_id, user_data.org_id));
+
+    const userMenuPermissions = userPermissions.filter(e =&gt; (e.context_name === &quot;APP&quot; &amp;&amp; e.operation_name === &quot;menu&quot;)).map(e =&gt; e.object_name);
+    const useraAPIPermissions = userPermissions.filter(e =&gt; e.context_name === &quot;API&quot;).map(e =&gt; (`${e.object_name}:${e.operation_name}`));;
+
+    const language_code = user_data[&quot;language_code&quot;] || config.i18n.default_language;
+
+    const labels = getLangData(language_code);
+
+    const hierarchy = await getMenuHierarchy(userMenuPermissions);
+
+    return {
+        error: false, code: 1000, data: {
+            user: user_data,
+            menu: hierarchy,
+            labels,
+            permissions: {
+                menu: userMenuPermissions,
+                api: useraAPIPermissions
+            }
+        }
+    };
+};</code></pre>
+    </details>
+    
+        </div>
+      
+      </section>
+    
+
+      <section id="fn-api_routes/client/auth/api.js">
+        <h2>api/routes/client/auth/api.js</h2>
+        
+        <div class="function" style="border: 1px solid #bfbfbf; padding: 1rem;">
+          <h3>start</h3>
+          <p style="word-break: break-word;">(No description)</p>
+          <ul style="margin: 0; padding: 0; list-style: none;"><b>Parameters:</b><li><code>_args</code> (<i>Object</i>): Function arguments</li><li><code>context</code> (<i>ContextType</i>): Request context</li></ul>
+          <p><b>Returns:</b> (<i>Promise&lt;any&gt;</i>) - Result object</p>
+          
+          
+    <details>
+        <summary>Show function code</summary>
+        <pre><code class="language-js">export const start = async (_args, context) =&gt; {
+
+    const user_data = await session.getAll(context.token);
+    console.log(&#39;user_data: &#39;, user_data);
+
+    // const userPermissions = (await getUserAuthorization(user_data.user_id, user_data.org_id, &quot;MENU&quot;, &quot;view&quot;)).map(e =&gt; e.object_name);
+    // const userPermissions = (await getUserAuthorization(user_data.user_id, user_data.org_id));
+    const userPermissions = [];
+
+    const userMenuPermissions = userPermissions.filter(e =&gt; (e.context_name === &quot;APP&quot; &amp;&amp; e.operation_name === &quot;menu&quot;)).map(e =&gt; e.object_name);
+    const useraAPIPermissions = userPermissions.filter(e =&gt; e.context_name === &quot;API&quot;).map(e =&gt; (`${e.object_name}:${e.operation_name}`));;
+
+    const language_code = user_data[&quot;language_code&quot;] || config.i18n.default_language;
+
+    const labels = getLangData(language_code);
+
+    // const hierarchy = await getMenuHierarchy(userMenuPermissions);
+    const hierarchy = [];
+
+    return {
+        error: false, code: 1000, data: {
+            user: user_data,
+            menu: hierarchy,
+            labels,
+            permissions: {
+                menu: userMenuPermissions,
+                api: useraAPIPermissions
+            }
+        }
+    };
+};</code></pre>
+    </details>
+    
+        </div>
+      
+      </section>
+    
+
+      <section id="fn-api_routes/client/public/api.js">
+        <h2>api/routes/client/public/api.js</h2>
+        
+        <div class="function" style="border: 1px solid #bfbfbf; padding: 1rem;">
+          <h3>logoff</h3>
+          <p style="word-break: break-word;">(No description)</p>
+          <ul style="margin: 0; padding: 0; list-style: none;"><b>Parameters:</b><li><code>_args</code> (<i>Object</i>): Function arguments</li><li><code>context</code> (<i>ContextType</i>): Request context</li></ul>
+          <p><b>Returns:</b> (<i>Promise&lt;APIResponseLogoffType&gt;</i>) - Result object</p>
+          
+          
+    <details>
+        <summary>Show function code</summary>
+        <pre><code class="language-js">export const logoff = async (_args, context) =&gt; {
+
+    await session.destroy({ token: context.token, exec_id: context.execId });
+
+    return { error: false, code: 1000, data: null };
+
+};</code></pre>
+    </details>
+    
+        </div>
+      
+
+        <div class="function" style="border: 1px solid #bfbfbf; padding: 1rem;">
+          <h3>login</h3>
+          <p style="word-break: break-word;">(No description)</p>
+          <ul style="margin: 0; padding: 0; list-style: none;"><b>Parameters:</b><li><code>args</code> (<i>Object</i>): Function arguments</li><li><code>context</code> (<i>ContextType</i>): Request context</li></ul>
+          <p><b>Returns:</b> (<i>Promise&lt;APIResponseLoginType&gt;</i>) - Result object</p>
+          
+          
+    <details>
+        <summary>Show function code</summary>
+        <pre><code class="language-js">export const login = async (args, context) =&gt; {
+
+    const { exec_id } = context;
+
+    const { email, password, tax_id } = args;
+
+    const query = `
+        select
+            usu.id as &quot;user_id&quot;,
+            usu.password_hash,
+            ent.id as &quot;entity_id&quot;
+        from
+        auth.users usu
+        join fman.users_entities uen on (usu.id = uen.user_id) 
+        join fman.entities ent on (ent.id = uen.entity_id)
+        where 1=1
+        and usu.is_active = true
+        and lower(usu.email) = lower({email})
+        and ent.tax_id = {tax_id}`;
+
+    const user_data = await db.query(query, { email, tax_id });
+
+    if (user_data.length &gt; 0) {
+
+        const { 
+            user_id,
+            entity_id,
+            password_hash
+        } = user_data[0];
+
+        const password_match = await security.password_compare(password, password_hash);
+
+        if (password_match) {
+
+            log.debug(`User [${email}] password_match`, &quot;auth/public:login&quot;, exec_id);
+
+            const session_data = await create_session(exec_id, user_id, entity_id);
+
+            return { error: session_data.error, code: 1000, message:session_data.message, data: session_data.data };
+
+        } else {
+
+            log.debug(`User [${email}] cannot login`, &quot;auth/public:login&quot;, exec_id);
+
+            return { error: true, code: 1004, message: &quot;Unable to login&quot;, data: null };
+
+        }
+
+    } else {
+
+        log.debug(`User [${email}] not found`, &quot;auth/public:login&quot;, exec_id);
+
+        return { error: true, code: 1004, message: &quot;Unable to login&quot;, data: null };
+
+    }
+
+};</code></pre>
+    </details>
+    
+        </div>
+      
+
+        <div class="function" style="border: 1px solid #bfbfbf; padding: 1rem;">
+          <h3>login2</h3>
+          <p style="word-break: break-word;">(No description)</p>
+          
+          
+          
+          
+    <details>
+        <summary>Show function code</summary>
+        <pre><code class="language-js">export const login2 = async (args, context) =&gt; {
+
+    const { exec_id } = context;
+
+    const { email, password, tax_id } = args;
+
+    const query = `
+        select
+            usu.id as &quot;user_id&quot;,
+            usu.is_active as &quot;user_is_active&quot;,
+            usu.full_name as &quot;user_name&quot;,
+            usu.email as &quot;user_email&quot;,
+            usu.password_hash,
+            ent.id as &quot;entity_id&quot;,
+            ent.entity_name,
+            ent.tax_id as &quot;entity_tax_id&quot;,
+            ent.is_customer as &quot;entity_is_customer&quot;,
+            case when ead.user_id is null then false else true end as &quot;user_is_admin&quot;
+        from
+        auth.users usu
+        join fman.users_entities uen on (usu.id = uen.user_id) 
+        join fman.entities ent on (ent.id = uen.entity_id)
+        left join fman.entities_admins ead on (ead.entity_id = ent.id)
+        where 1=1
+        and usu.is_active = true
+        and lower(usu.email) = lower({email})
+        and ent.tax_id = {tax_id}`;
+
+    const user_data = await db.query(query, { email, tax_id });
+
+    if (user_data.length &gt; 0) {
+
+        const { 
+            user_id,
+            user_name,
+            user_email,
+            user_is_active,
+            user_is_admin,
+            entity_is_customer,
+            password_hash,
+            entity_name,
+            entity_id,
+            entity_tax_id } = user_data[0];
+
+        const password_match = await security.password_compare(password, password_hash);
+
+        if (password_match) {
+
+            log.debug(`User [${email}] password_match`, &quot;auth/public:login&quot;, exec_id);
+
+            const token = session.token();
+
+            await session.create({
+                token,
+                data: {
+                    entity_name,
+                    entity_id,
+                    entity_tax_id,
+                    user_id,
+                    user_name,
+                    user_email,
+                    user_is_admin,
+                    user_is_active,
+                    entity_is_customer
+                },
+                exec_id
+            });
+
+            return { error: false, code: 1000, data: { user_name, user_email, user_is_admin, entity_name, entity_tax_id, entity_is_customer, token } };
+
+        } else {
+
+            log.debug(`User [${email}] cannot login`, &quot;auth/public:login&quot;, exec_id);
+
+            return { error: true, code: 1004, message: &quot;Unable to login&quot;, data: null };
+
+        }
+
+    } else {
+
+        log.debug(`User [${email}] not found`, &quot;auth/public:login&quot;, exec_id);
+
+        return { error: true, code: 1004, message: &quot;Unable to login&quot;, data: null };
+
+    }
+
+};</code></pre>
+    </details>
+    
+        </div>
+      
+
+        <div class="function" style="border: 1px solid #bfbfbf; padding: 1rem;">
+          <h3>recovery</h3>
+          <p style="word-break: break-word;">(No description)</p>
+          
+          
+          
+          
+    <details>
+        <summary>Show function code</summary>
+        <pre><code class="language-js">export const recovery = async (args, context) =&gt; {
+
+    const { exec_id } = context;
+
+    const { email } = args;
+
+    const query = `
+        select 
+            usr.id,
+            usr.email,
+            usr.full_name
+        from 
+        auth.users usr 
+        where 1=1
+        and usr.is_active = true
+        and lower(usr.email) = lower({email})`;
+
+    const user_data = await db.query(query, { email });
+
+    if (user_data.length &gt; 0) {
+
+        const recovery_token = randomHexaString(32);
+
+        const { full_name } = user_data[0];
+
+        await db.query(`
+            update auth.users 
+            set 
+                recovery_token = {recovery_token}, 
+                recovery_timestamp = {recovery_timestamp}
+            where lower(email) = lower({email})`,
+            {
+                recovery_token,
+                recovery_timestamp: timestamp() + 3600 * 1000, // 1 hour
+                email
+            }
+        );
+
+        const login_url = config.security.login_url;
+
+        const tpl = recovery_template(`${full_name}`, `${login_url}?action=reset&amp;token=${recovery_token}`);
+
+        serviceEmailSend({
+            to: email,
+            subject: &quot;Recuperación de contraseña&quot;,
+            body: tpl
+        });
+
+        return { error: false, code: 1000, message: &quot;&quot;, data: null };
+
+    } else {
+
+        log.debug(`User [${email}] not found`, &quot;auth/public:recover&quot;, exec_id);
+
+        return { error: false, code: 1004, message: &quot;&quot;, data: null };
+
+    }
+
+};</code></pre>
+    </details>
+    
+        </div>
+      
+
+        <div class="function" style="border: 1px solid #bfbfbf; padding: 1rem;">
+          <h3>reset</h3>
+          <p style="word-break: break-word;">(No description)</p>
+          
+          
+          
+          
+    <details>
+        <summary>Show function code</summary>
+        <pre><code class="language-js">export const reset = async (args, context) =&gt; {
+
+    const { exec_id } = context;
+
+    const { token: recovery_token, password, language } = args;
+    console.log(&#39;token, password1, language: &#39;, recovery_token, password, language);
+
+    const query = `
+        select 
+            usr.recovery_timestamp 
+        from 
+        auth.users usr 
+        where recovery_token = {recovery_token}`;
+
+    const user_data = await db.query(query, { recovery_token });
+
+    if (user_data.length &gt; 0) {
+
+        const { recovery_timestamp } = user_data[0];
+
+        if (recovery_timestamp &lt; timestamp()) {
+
+            const password_hash = await security.password_hash(password);
+            console.log(&#39;password_hash: &#39;, password_hash);
+
+            await db.query(`
+                update auth.users 
+                set 
+                    password_hash = {password_hash},
+                    recovery_token = null, 
+                    recovery_timestamp = null
+                where recovery_token = {recovery_token}`,
+                { recovery_token, password_hash }
+            );
+
+            return { error: false, code: 1004, message: &quot;Pasword recovered&quot;, data: null };
+
+        } else {
+
+            log.debug(`Expired token`, &quot;auth/public:recover&quot;, exec_id);
+
+            return { error: true, code: 1000, message: &quot;Expired token&quot;, data: null };
+        }
+
+    } else {
+
+        log.debug(`Token not found`, &quot;auth/public:recover&quot;, exec_id);
+
+        return { error: true, code: 1004, message: &quot;Token not found&quot;, data: null };
+
+    }
+
+};</code></pre>
+    </details>
+    
+        </div>
+      
+
+        <div class="function" style="border: 1px solid #bfbfbf; padding: 1rem;">
+          <h3>new_user</h3>
+          <p style="word-break: break-word;">/** Creates a new user with the given data.</p>
+          <ul style="margin: 0; padding: 0; list-style: none;"><b>Parameters:</b><li><code>args</code> (<i>Object</i>): The input arguments.</li><li><code>context</code> (<i>Object</i>): The function context.</li></ul>
+          <p><b>Returns:</b> (<i>Promise&lt;Object&gt;</i>) - The response object.</p>
+          
+          
+    <details>
+        <summary>Show function code</summary>
+        <pre><code class="language-js">export const new_user = async (args, context) =&gt; {
+
+    const { exec_id } = context;
+
+    const { full_name, password, email } = args;
+    console.log(&#39;full_name, password, email: &#39;, full_name, password, email);
+
+    const query = `
+        select 
+            usr.email
+        from 
+        auth.users usr 
+        where usr.email = {email}`;
+
+    const user_data = await db.query(query, { email });
+
+    if (user_data.length &gt; 0) {
+
+        return { error: true, code: 2004, message: &quot;Ya existe un usuario registrado con este correo electrónico&quot;, data: null };
+
+    } else {
+
+        // const new_password = randomHexaString(3);
+        // console.log(&#39;new_password: &#39;, new_password);
+    
+        const new_user_id = uuid();
+        console.log(&#39;new_user_id: &#39;, new_user_id);
+
+        const recovery_token = randomHexaString(32);
+        console.log(&#39;recovery_token: &#39;, recovery_token);
+    
+        const values = {
+            id: new_user_id,
+            is_admin: false,
+            is_active: false,
+            is_customer: false,
+            is_superadmin: false,
+            full_name: full_name,
+            email: email,
+            created_by: new_user_id,
+            created_at: timestamp(),
+            recovery_token,
+            recovery_timestamp: timestamp() + 60 * 60 * 24 * 1000, // 1 day
+            password_hash: await security.password_hash(password), // new_password
+        };
+    
+        const data = await db.insert({
+            table: &quot;auth.users&quot;,
+            values
+        });
+
+        const login_url = config.security.login_url;
+
+        const tpl = new_user_template(&#39;Bienvenido a Fisco Manager&#39;, &#39;Por favor verifique su correo electronico haciendo clic en el siguiente enlace&#39;, full_name, `${login_url}?action=verify&amp;token=${recovery_token}&amp;email=${email}`, &#39;Verificar correo&#39;);
+
+        serviceEmailSend({
+            to: email,
+            subject: &quot;Verificación de correo electrónico&quot;,
+            body: tpl
+        });
+    
+        return { error: false, code: 1000, data };
+
+        // return { error: true, code: 1004, message: &quot;Token not found&quot;, data: null };
+
+    }
+
+};</code></pre>
+    </details>
+    
+        </div>
+      
+
+        <div class="function" style="border: 1px solid #bfbfbf; padding: 1rem;">
+          <h3>verify_email</h3>
+          <p style="word-break: break-word;">(No description)</p>
+          
+          
+          
+          
+    <details>
+        <summary>Show function code</summary>
+        <pre><code class="language-js">export const verify_email = async (args, context) =&gt; {
+
+    const { exec_id } = context;
+
+    const { email, token } = args;
+
+    const query = `
+        select 
+            usr.id,
+            usr.email
+        from 
+            auth.users usr 
+        where 1=1
+        and lower(usr.email) = lower({email})
+        and usr.recovery_token = {token}
+        and usr.recovery_timestamp &gt; {ts}`;
+
+    const user_data = await db.query(query, { 
+        email,
+        token,
+        ts: timestamp()
+    });
+
+    if (user_data.length &gt; 0) {
+    
+        // const { email } = user_data[0];
+
+        await db.query(`
+            update auth.users 
+            set 
+                is_active = true,
+                is_email_verified = true,
+                recovery_token = null, 
+                recovery_timestamp = null
+            where recovery_token = {token}`,
+            { token }
+        );
+
+        return { error: false, code: 1000, message: &quot;Correo verificado correctamente&quot;, data: null };
+
+    } else {
+
+        await db.query(`
+            update auth.users 
+            set 
+                is_email_verified = false,
+                recovery_token = null, 
+                recovery_timestamp = null
+            where recovery_token = {token}`,
+            { token }
+        );
+
+        log.debug(`Unable to verify [${email}] with token [${token}]`, &quot;fman/public:verify_email&quot;, exec_id);
+
+        return { error: true, code: 2004, message: &quot;No se puedo verificar el correo electrónico&quot;, data: null };
+
+    }
+
+};</code></pre>
+    </details>
+    
+        </div>
+      
+
+        <div class="function" style="border: 1px solid #bfbfbf; padding: 1rem;">
+          <h3>email</h3>
+          <p style="word-break: break-word;">(No description)</p>
+          
+          
+          
+          
+    <details>
+        <summary>Show function code</summary>
+        <pre><code class="language-js">// export const email = async (args, context) =&gt; {
+
+
+
+//     const login_url = config.security.login_url;
+//     const full_name = &quot;Pepito&quot;;
+//     const recovery_token = randomHexaString(32);
+
+//     const tpl = new_user_template(&#39;Bienvenido a Fisco Manager&#39;, &#39;Por favor verifique su correo electronico haciendo clic en el siguiente enlace&#39;, full_name, `${login_url}?action=verify&amp;token=${recovery_token}&amp;email=${email}`, &#39;Verificar correo&#39;);
+
+//     serviceEmailSend({
+//         to: &quot;juanmartinguillen@gmail.com&quot;,
+//         subject: &quot;TEst Godaddy&quot;,
+//         body: tpl
+//     });
+
+//     return { error: false, code: 1000, data: null };
+
+// };</code></pre>
+    </details>
+    
+        </div>
+      
+
+        <div class="function" style="border: 1px solid #bfbfbf; padding: 1rem;">
+          <h3>invitation_pre</h3>
+          <p style="word-break: break-word;">(No description)</p>
+          
+          
+          
+          
+    <details>
+        <summary>Show function code</summary>
+        <pre><code class="language-js">// export const invitation_pre = async (args, context) =&gt; {
+
+//     const { exec_id } = context;
+
+//     const { token } = args;
+
+//     const query = `
+//         SELECT id, status, entity_id, user_id, &quot;token&quot;, valid_until
+//         FROM fman.invitations
+//         WHERE 1=1
+//         AND status = &#39;EMAIL_SENT&#39;
+//         AND token = {token}`;
+
+//     const invitation_data = await db.query(query, { token });
+
+//     if (invitation_data.length &gt; 0) {
+    
+//         const { valid_until, entity_id, user_id } = invitation_data[0];
+
+//         if (valid_until &gt; timestamp()) {
+
+//             const user_data = await db.select({
+//                 table: &quot;auth.users&quot;,
+//                 columns: [&quot;full_name&quot;, &quot;email&quot;],
+//                 where: {
+//                     id: user_id
+//                 }
+//             });
+
+//             const entity_data = await db.select({
+//                 table: &quot;fman.entities&quot;,
+//                 columns: [&quot;entity_name&quot;, &quot;tax_id&quot;],
+//                 where: {
+//                     id: entity_id
+//                 }
+//             });
+
+//             await db.update({
+//                 table: &quot;fman.invitations&quot;,
+//                 values: { status: &quot;OPENED&quot; },
+//                 where: { token }
+//             });
+
+//             return { error: false, code: 1000, data: {
+//                 user_name: user_data[0]?.full_name,
+//                 user_email: user_data[0]?.email,
+//                 entity_name: entity_data[0]?.entity_name,
+//                 tax_id: entity_data[0]?.tax_id,
+//             }};
+
+//         } else {
+
+//             return { error: true, code: 1000, message: &quot;Invitación expirada&quot;, data: null };
+
+//         }
+
+//     } else {
+
+//         return { error: true, code: 2004, message: &quot;No se pudo encontrar la invitación&quot;, data: null };
+
+//     }
+
+// };</code></pre>
+    </details>
+    
+        </div>
+      
+
+        <div class="function" style="border: 1px solid #bfbfbf; padding: 1rem;">
+          <h3>invitation_accept</h3>
+          <p style="word-break: break-word;">(No description)</p>
+          
+          
+          
+          
+    <details>
+        <summary>Show function code</summary>
+        <pre><code class="language-js">export const invitation_accept = async (args, context) =&gt; {
+
+    const { exec_id } = context;
+
+    const { token, full_name, password } = args;
+
+    const query = `
+        SELECT id, status, entity_id, user_id, &quot;token&quot;, valid_until
+        FROM fman.invitations
+        WHERE 1=1
+        AND status = &#39;EMAIL_SENT&#39;
+        AND token = {token}`;
+
+    const invitation_data = await db.query(query, { token });
+
+    console.log(&quot;invitation_data&quot;, invitation_data)
+
+    if (invitation_data.length &gt; 0) {
+    
+        const { valid_until, entity_id, user_id } = invitation_data[0];
+
+        if (valid_until &gt; timestamp()) {
+
+            await db.update({
+                table: &quot;fman.invitations&quot;,
+                values: { status: &quot;ACCEPTED&quot;, accepted_on: timestamp() },
+                where: { token }
+            });
+
+            await db.update({
+                table: &quot;auth.users&quot;,
+                values: { 
+                    full_name,
+                    password_hash: await security.password_hash(password),
+                    is_active: true,
+                    is_email_verified: true
+                },
+                where: { id: user_id }
+            });
+
+            await db.query(`
+                INSERT INTO fman.users_entities (entity_id, user_id)
+                VALUES ({entity_id}, {user_id})
+                ON CONFLICT DO NOTHING`, {
+                entity_id, user_id
+            });
+
+            const session_data = await create_session(exec_id, user_id, entity_id);
+
+            return { error: session_data.error, code: 1000, message:session_data.message, data: session_data.data };
+
+            // const query = `
+            //     select
+            //         usu.id as &quot;user_id&quot;,
+            //         usu.is_active as &quot;user_is_active&quot;,
+            //         usu.full_name as &quot;user_name&quot;,
+            //         usu.email as &quot;user_email&quot;,
+            //         ent.id as &quot;entity_id&quot;,
+            //         ent.entity_name,
+            //         ent.tax_id as &quot;entity_tax_id&quot;,
+            //         ent.is_customer as &quot;entity_is_customer&quot;,
+            //         case when ead.user_id is null then false else true end as &quot;user_is_admin&quot;
+            //     from
+            //     auth.users usu
+            //     join fman.users_entities uen on (usu.id = uen.user_id) 
+            //     join fman.entities ent on (ent.id = uen.entity_id)
+            //     left join fman.entities_admins ead on (ead.entity_id = ent.id)
+            //     where 1=1
+            //     and usu.is_active = true
+            //     and usu.id = {user_id}
+            //     and ent.id = {entity_id}`;
+
+            // const user_data = await db.query(query, {user_id, entity_id});
+
+            // console.log(&quot;user_data&quot;, user_data)
+
+            // if (user_data.length &gt; 0) {
+
+            //     const { 
+            //         user_id,
+            //         user_name,
+            //         user_email,
+            //         user_is_active,
+            //         user_is_admin,
+            //         entity_is_customer,
+            //         entity_name,
+            //         entity_id,
+            //         entity_tax_id } = user_data[0];
+
+            //         log.debug(`User [${user_email}] password_match`, &quot;auth/public:login&quot;, exec_id);
+
+            //         const session_token = session.token();
+        
+            //         await session.create({
+            //             token: session_token,
+            //             data: {
+            //                 entity_name,
+            //                 entity_id,
+            //                 entity_tax_id,
+            //                 user_id,
+            //                 user_name,
+            //                 user_email,
+            //                 user_is_admin,
+            //                 user_is_active,
+            //                 entity_is_customer
+            //             },
+            //             exec_id
+            //         });
+        
+            //         return { error: false, code: 1000, data: { user_name, user_email, user_is_admin, entity_name, entity_tax_id, entity_is_customer, token: session_token } };
+
+                
+            // } else {
+
+            //     return { error: true, code: 2004, message: &quot;Usuario no encontrado&quot;, data: null };
+
+            // }
+
+            // const user_data = await db.select({
+            //     table: &quot;auth.users&quot;,
+            //     columns: [&quot;id&quot;, &quot;full_name&quot;, &quot;email&quot;, &quot;is_active&quot;],
+            //     where: {
+            //         id: user_id
+            //     }
+            // });
+
+            // const entity_data = await db.select({
+            //     table: &quot;fman.entities&quot;,
+            //     columns: [&quot;id&quot;, &quot;entity_name&quot;, &quot;tax_id&quot;, &quot;is_customer&quot;],
+            //     where: {
+            //         id: entity_id
+            //     }
+            // });
+
+
+
+        } else {
+
+            return { error: true, code: 1000, message: &quot;Invitación expirada&quot;, data: null };
+
+        }
+
+    } else {
+
+        return { error: true, code: 2004, message: &quot;No se pudo encontrar la invitación&quot;, data: null };
+
+    }
+
+};</code></pre>
+    </details>
+    
+        </div>
+      
+      </section>
+    
+
+      <section id="fn-api_routes/examples/qr/api.js">
+        <h2>api/routes/examples/qr/api.js</h2>
+        
+        <div class="function" style="border: 1px solid #bfbfbf; padding: 1rem;">
+          <h3>get_image_url</h3>
+          <p style="word-break: break-word;">(No description)</p>
+          
+          
+          
+          
+    <details>
+        <summary>Show function code</summary>
+        <pre><code class="language-js">export const get_image_url = async (args, context) =&gt; {
+
+    const data = await qr(args.text);
+
+    return { error: false, code: 1000, data };
+
+};</code></pre>
+    </details>
+    
+        </div>
+      
+      </section>
+    
+
+      <section id="fn-api_routes/fman/public/api.js">
+        <h2>api/routes/fman/public/api.js</h2>
+        
+        <div class="function" style="border: 1px solid #bfbfbf; padding: 1rem;">
+          <h3>logoff</h3>
+          <p style="word-break: break-word;">(No description)</p>
+          <ul style="margin: 0; padding: 0; list-style: none;"><b>Parameters:</b><li><code>_args</code> (<i>Object</i>): Function arguments</li><li><code>context</code> (<i>ContextType</i>): Request context</li></ul>
+          <p><b>Returns:</b> (<i>Promise&lt;APIResponseLogoffType&gt;</i>) - Result object</p>
+          
+          
+    <details>
+        <summary>Show function code</summary>
+        <pre><code class="language-js">export const logoff = async (_args, context) =&gt; {
+
+    await session.destroy({ token: context.token, exec_id: context.execId });
+
+    return { error: false, code: 1000, data: null };
+
+};</code></pre>
+    </details>
+    
+        </div>
+      
+
+        <div class="function" style="border: 1px solid #bfbfbf; padding: 1rem;">
+          <h3>hash</h3>
+          <p style="word-break: break-word;">(No description)</p>
+          
+          
+          
+          
+    <details>
+        <summary>Show function code</summary>
+        <pre><code class="language-js">export const hash = async (args, _context) =&gt; {
+
+    const { password } = args;
+
+    return { error: false, code: 1004, message: &quot;Token not found&quot;, data: await security.password_hash(password) };
+
+};</code></pre>
+    </details>
+    
+        </div>
+      
+
+        <div class="function" style="border: 1px solid #bfbfbf; padding: 1rem;">
+          <h3>parse_doc</h3>
+          <p style="word-break: break-word;">(No description)</p>
+          
+          
+          
+          
+    <details>
+        <summary>Show function code</summary>
+        <pre><code class="language-js">export const parse_doc = async (args, _context) =&gt; {
+
+    const { file_type, file_id } = args;
+
+    // &quot;file_id&quot;: &quot;9eae417a-0557-4f0f-8694-bdc88f4c40a0&quot;,
+
+    const data = await parsePdfDoc(file_id, file_type, &quot;context&quot;, uuid());
+
+    console.log(&#39;data: &#39;, JSON.stringify(data, null, 2));
+
+    return { error: false, code: 1004, message: &quot;Token not found&quot;, data };
+
+};</code></pre>
+    </details>
+    
+        </div>
+      
+
+        <div class="function" style="border: 1px solid #bfbfbf; padding: 1rem;">
+          <h3>login</h3>
+          <p style="word-break: break-word;">(No description)</p>
+          <ul style="margin: 0; padding: 0; list-style: none;"><b>Parameters:</b><li><code>args</code> (<i>Object</i>): Function arguments</li><li><code>context</code> (<i>ContextType</i>): Request context</li></ul>
+          <p><b>Returns:</b> (<i>Promise&lt;APIResponseLoginType&gt;</i>) - Result object</p>
+          
+          
+    <details>
+        <summary>Show function code</summary>
+        <pre><code class="language-js">export const login = async (args, context) =&gt; {
+
+    const { exec_id } = context;
+
+    const { email, password, tax_id } = args;
+
+    const query = `
+        select
+            usu.id as &quot;user_id&quot;,
+            usu.is_superadmin as &quot;user_is_superadmin&quot;,
+            usu.full_name as &quot;user_name&quot;,
+            usu.email as &quot;user_email&quot;,
+            usu.password_hash,
+            ent.id as &quot;entity_id&quot;,
+            ent.entity_name,
+            ent.tax_id as &quot;entity_tax_id&quot;
+        from
+        auth.users usu
+        join fman.users_entities uen on (usu.id = uen.user_id) 
+        join fman.entities ent on (ent.id = uen.entity_id)
+        where 1=1
+        and usu.is_active = true
+        and lower(usu.email) = lower({email})
+        and ent.tax_id = {tax_id}`;
+
+    const user_data = await db.query(query, { email, tax_id });
+
+    if (user_data.length &gt; 0) {
+
+        const { 
+            user_id,
+            user_name,
+            user_email,
+            user_is_admin,
+            user_is_superadmin,
+            password_hash,
+            entity_name,
+            entity_id,
+            entity_tax_id } = user_data[0];
+
+        const password_match = await security.password_compare(password, password_hash);
+
+        if (password_match) {
+
+            log.debug(`User [${email}] password_match`, &quot;auth/public:login&quot;, exec_id);
+
+            const token = session.token();
+
+            await session.create({
+                token,
+                data: {
+                    entity_name,
+                    entity_id,
+                    entity_tax_id,
+                    user_id,
+                    user_name,
+                    user_email,
+                    user_is_admin,
+                    user_is_superadmin
+                },
+                exec_id
+            });
+
+            return { error: false, code: 1000, data: { user_name, user_email, entity_name, entity_tax_id, token } };
+
+        } else {
+
+            log.debug(`User [${email}] cannot login`, &quot;auth/public:login&quot;, exec_id);
+
+            return { error: true, code: 1004, message: &quot;Unable to login&quot;, data: null };
+
+        }
+
+    } else {
+
+        log.debug(`User [${email}] not found`, &quot;auth/public:login&quot;, exec_id);
+
+        return { error: true, code: 1004, message: &quot;Unable to login&quot;, data: null };
+
+    }
+
+};</code></pre>
+    </details>
+    
+        </div>
+      
+
+        <div class="function" style="border: 1px solid #bfbfbf; padding: 1rem;">
+          <h3>recovery</h3>
+          <p style="word-break: break-word;">Recovers a user's password given an email address.</p>
+          <ul style="margin: 0; padding: 0; list-style: none;"><b>Parameters:</b><li><code>args</code> (<i>Object</i>): The input arguments.</li><li><code>context</code> (<i>Object</i>): The function context.</li></ul>
+          <p><b>Returns:</b> (<i>Promise&lt;Object&gt;</i>) - The response object.</p>
+          
+          
+    <details>
+        <summary>Show function code</summary>
+        <pre><code class="language-js">export const recovery = async (args, context) =&gt; {
+
+    const { exec_id } = context;
+
+    const { email, language } = args;
+
+    const query = `
+        select 
+            usr.id,
+            usr.email,
+            usr.first_name,
+            usr.last_name,
+            usr.first_name || &#39; &#39; || usr.last_name as full_name,
+            usr.password_hash,
+            usr.language_code,
+            org.id as org_id 
+        from 
+        auth.user usr 
+        join auth.organization org on (usr.org_id = org.id)
+        where lower(usr.email) = lower({email})`;
+
+    const user_data = await db.query(query, { email });
+
+    if (user_data.length &gt; 0) {
+
+        const recovery_token = randomHexaString(32);
+
+        const { first_name, last_name } = user_data[0];
+
+        await db.query(`
+            update auth.user 
+            set 
+                recovery_token = {recovery_token}, 
+                recovery_expiration_ts = {recovery_expiration_ts}, 
+                language_code = {language_code}
+            where lower(email) = lower({email})`,
+            {
+                recovery_token,
+                recovery_expiration_ts: timestamp() + 3600 * 1000, // 1 hour
+                language, email
+            }
+        );
+
+        const recovery_url = config.security.recovery_url;
+
+        const tpl = template(`${first_name} ${last_name}`, `${recovery_url}/login.html?action=recovery&amp;token=${recovery_token}`);
+
+        serviceEmailSend({
+            to: email,
+            subject: &quot;Password recovery&quot;,
+            body: tpl
+        });
+
+        return { error: false, code: 1000, message: &quot;&quot;, data: null };
+
+    } else {
+
+        log.debug(`User [${email}] not found`, &quot;auth/public:recover&quot;, exec_id);
+
+        return { error: false, code: 1004, message: &quot;&quot;, data: null };
+
+    }
+
+};</code></pre>
+    </details>
+    
+        </div>
+      
+
+        <div class="function" style="border: 1px solid #bfbfbf; padding: 1rem;">
+          <h3>reset</h3>
+          <p style="word-break: break-word;">Resets a user's password given a recovery token.</p>
+          <ul style="margin: 0; padding: 0; list-style: none;"><b>Parameters:</b><li><code>args</code> (<i>Object</i>): The input arguments.</li><li><code>context</code> (<i>Object</i>): The function context.</li></ul>
+          <p><b>Returns:</b> (<i>Promise&lt;Object&gt;</i>) - The response object.</p>
+          
+          
+    <details>
+        <summary>Show function code</summary>
+        <pre><code class="language-js">export const reset = async (args, context) =&gt; {
+
+    const { exec_id } = context;
+
+    const { token: recovery_token, password, language } = args;
+    console.log(&#39;token, password1, language: &#39;, recovery_token, password, language);
+
+    const query = `
+        select 
+            usr.recovery_expiration_ts 
+        from 
+        auth.user usr 
+        join auth.organization org on (usr.org_id = org.id)
+        where recovery_token = {recovery_token}`;
+
+    const user_data = await db.query(query, { recovery_token });
+
+    if (user_data.length &gt; 0) {
+
+        const { recovery_expiration_ts } = user_data[0];
+
+        if (recovery_expiration_ts &lt; timestamp()) {
+
+            const password_hash = await security.password_hash(password);
+            console.log(&#39;password_hash: &#39;, password_hash);
+
+            await db.query(`
+                update auth.user 
+                set 
+                    password_hash = {password_hash},
+                    recovery_token = null, 
+                    recovery_expiration_ts = null
+                where recovery_token = {recovery_token}`,
+                { recovery_token, password_hash }
+            );
+
+            return { error: false, code: 1004, message: &quot;Pasword recovered&quot;, data: null };
+
+        } else {
+
+            log.debug(`Expired token`, &quot;auth/public:recover&quot;, exec_id);
+
+            return { error: true, code: 1000, message: &quot;Expired token&quot;, data: null };
+        }
+
+    } else {
+
+        log.debug(`Token not found`, &quot;auth/public:recover&quot;, exec_id);
+
+        return { error: true, code: 1004, message: &quot;Token not found&quot;, data: null };
+
+    }
+
+};</code></pre>
+    </details>
+    
+        </div>
+      
+
+        <div class="function" style="border: 1px solid #bfbfbf; padding: 1rem;">
+          <h3>new_user</h3>
+          <p style="word-break: break-word;">/** Creates a new user with the given data.</p>
+          <ul style="margin: 0; padding: 0; list-style: none;"><b>Parameters:</b><li><code>args</code> (<i>Object</i>): The input arguments.</li><li><code>context</code> (<i>Object</i>): The function context.</li></ul>
+          <p><b>Returns:</b> (<i>Promise&lt;Object&gt;</i>) - The response object.</p>
+          
+          
+    <details>
+        <summary>Show function code</summary>
+        <pre><code class="language-js">export const new_user = async (args, context) =&gt; {
+
+    const { exec_id } = context;
+
+    const { full_name, password, email } = args;
+    console.log(&#39;full_name, password, email: &#39;, full_name, password, email);
+
+    const query = `
+        select 
+            usr.email
+        from 
+        auth.users usr 
+        where usr.email = {email}`;
+
+    const user_data = await db.query(query, { email });
+
+    if (user_data.length &gt; 0) {
+
+        return { error: true, code: 2004, message: &quot;Ya existe un usuario registrado con este correo electrónico&quot;, data: null };
+
+    } else {
+
+        // const new_password = randomHexaString(3);
+        // console.log(&#39;new_password: &#39;, new_password);
+    
+        const new_user_id = uuid();
+        console.log(&#39;new_user_id: &#39;, new_user_id);
+
+        const recovery_token = randomHexaString(32);
+        console.log(&#39;recovery_token: &#39;, recovery_token);
+    
+        const values = {
+            id: new_user_id,
+            is_admin: false,
+            is_active: false,
+            is_customer: false,
+            is_superadmin: false,
+            full_name: full_name,
+            email: email,
+            created_by: new_user_id,
+            created_at: timestamp(),
+            recovery_token,
+            recovery_timestamp: timestamp() + 60 * 60 * 24 * 1000, // 1 day
+            password_hash: await security.password_hash(password), // new_password
+        };
+    
+        const data = await db.insert({
+            table: &quot;auth.users&quot;,
+            values
+        });
+    
+        // const tpl = template(greeting, message, username, linkUrl, linkLabel)
+        // const tpl = template(&quot;Welcome&quot;, `Please use the password ${new_password} to log in to your account.`, &quot;Juan Martín&quot;, &quot;http://localhost:3000&quot;, &quot;Login&quot;);
+    
+        // serviceEmailSend({
+        //     to: args.email,
+        //     subject: &quot;Welcome to the application&quot;,
+        //     body: tpl
+        // });
+    
+        return { error: false, code: 1000, data };
+
+        // return { error: true, code: 1004, message: &quot;Token not found&quot;, data: null };
+
+    }
+
+};</code></pre>
+    </details>
+    
+        </div>
+      
+
+        <div class="function" style="border: 1px solid #bfbfbf; padding: 1rem;">
+          <h3>verify_email</h3>
+          <p style="word-break: break-word;">(No description)</p>
+          
+          
+          
+          
+    <details>
+        <summary>Show function code</summary>
+        <pre><code class="language-js">export const verify_email = async (args, context) =&gt; {
+
+    const { exec_id } = context;
+
+    const { email, recovery_token } = args;
+
+    const query = `
+        select 
+            usr.id,
+            usr.email,
+            usr.full_name,
+            usr.recovery_token,
+            usr.recovery_timestamp
+        from 
+        auth.users usr 
+        where 1=1
+        and lower(usr.email) = lower({email})
+        and usr.recovery_token = {recovery_token}`;
+
+    const user_data = await db.query(query, { email, recovery_token });
+
+    if (user_data.length &gt; 0) {
+
+        const recovery_token = randomHexaString(32);
+
+        const { first_name, last_name } = user_data[0];
+
+
+
+        const recovery_url = config.security.recovery_url;
+
+        const tpl = template(`${first_name} ${last_name}`, `${recovery_url}/login.html?action=verify&amp;token=${recovery_token}`);
+
+        serviceEmailSend({
+            to: email,
+            subject: &quot;Password recovery&quot;,
+            body: tpl
+        });
+
+        return { error: false, code: 1000, message: &quot;&quot;, data: null };
+
+    } else {
+
+        log.debug(`User [${email}] not found`, &quot;auth/public:recover&quot;, exec_id);
+
+        return { error: true, code: 1004, message: &quot;No se puedo verificar el correo electrónico&quot;, data: null };
+
+    }
+
+};</code></pre>
+    </details>
+    
+        </div>
+      
+      </section>
+    
+
+      <section id="fn-api_routes/shared/certificates/utils.js">
+        <h2>api/routes/shared/certificates/utils.js</h2>
+        
+        <div class="function" style="border: 1px solid #bfbfbf; padding: 1rem;">
+          <h3>transformPdfData</h3>
+          <p style="word-break: break-word;">(No description)</p>
+          
+          
+          
+          
+    <details>
+        <summary>Show function code</summary>
+        <pre><code class="language-js">export function transformPdfData(pdf_page) {
+
+    const pdfData = pdf_page.Texts;
+
+    pdfData.sort((a, b) =&gt; {
+        if (a.y === b.y) {
+            return a.x - b.x;
+        } else {
+            return a.y - b.y;
+        }
+    });
+
+    for (let i = 0; i &lt; pdfData.length; i++) {
+
+        const row = pdfData[i];
+
+        row[&quot;text&quot;] = decodeUriText(row.R[0].T);
+    }
+
+    return pdfData;
+}</code></pre>
+    </details>
+    
+        </div>
+      
+      </section>
+    
+
+      <section id="fn-api_routes/shared/templates/generic.js">
+        <h2>api/routes/shared/templates/generic.js</h2>
+        
+        <div class="function" style="border: 1px solid #bfbfbf; padding: 1rem;">
+          <h3>template</h3>
+          <p style="word-break: break-word;">(No description)</p>
+          
+          
+          
+          
+    <details>
+        <summary>Show function code</summary>
+        <pre><code class="language-js">export function template(greeting, message, cta_url, cta_label) {
+    let html = `&lt;!DOCTYPE html&gt;
+    &lt;html lang=&quot;en&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;UTF-8&quot;&gt;
+        &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+        &lt;title&gt;${greeting}&lt;/title&gt;
+        &lt;style&gt;
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+                color: #333333;
+                margin: 0;
+                padding: 0;
+                font-size: 16px;
+            }
+            .container {
+                width: 100%;
+                max-width: 600px;
+                margin: 0 auto;
+                background-color: #ffffff;
+                padding: 20px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                border-radius: 8px;
+            }
+            .header {
+                text-align: center;
+                padding: 10px 0;
+                border-bottom: 1px solid #eeeeee;
+            }
+            .header h1 {
+                margin: 0;
+                color: #212529;
+            }
+            .content {
+                padding: 20px;
+                text-align: left;
+            }
+            .content p {
+                margin: 0 0 15px;
+            }
+            .btn {
+                display: inline-block;
+                padding: 10px 20px;
+                margin: 20px 0;
+                font-size: 16px;
+                color: #ffffff;
+                background-color: #212529;
+                text-decoration: none;
+                border-radius: 5px;
+                text-align: center;
+            }
+            .btn-label {
+                font-size: 16px;
+                color: #ffffff;
+            }
+            .footer {
+                text-align: center;
+                padding: 10px 0;
+                border-top: 1px solid #eeeeee;
+                font-size: 12px;
+                color: #777777;
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div class=&quot;container&quot;&gt;
+            &lt;div class=&quot;header&quot;&gt;
+                &lt;h1&gt;${greeting}&lt;/h1&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;content&quot;&gt;
+                &lt;p&gt;${message}&lt;/p&gt;
+                
+            
+    `;
+
+    if (cta_url) {
+        html += `&lt;a href=&quot;${cta_url}&quot; class=&quot;btn&quot;&gt;&lt;span class=&quot;btn-label&quot;&gt;${cta_label}&lt;/span&gt;&lt;/a&gt;`;
+    }
+
+    html += `
+            &lt;/div&gt;
+            &lt;div class=&quot;footer&quot;&gt;
+                &lt;p&gt;&amp;copy; ${new Date().getFullYear()}. All rights reserved.&lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+    `;
+
+    return html;
+}</code></pre>
+    </details>
+    
+        </div>
+      
+      </section>
+    
+
+      <section id="fn-api_routes/shared/templates/new_user.js">
+        <h2>api/routes/shared/templates/new_user.js</h2>
+        
+        <div class="function" style="border: 1px solid #bfbfbf; padding: 1rem;">
+          <h3>template</h3>
+          <p style="word-break: break-word;">(No description)</p>
+          
+          
+          
+          
+    <details>
+        <summary>Show function code</summary>
+        <pre><code class="language-js">export function template(greeting, message, username, linkUrl, linkLabel) {
+    return `&lt;!DOCTYPE html&gt;
+    &lt;html lang=&quot;en&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;UTF-8&quot;&gt;
+        &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+        &lt;title&gt;${greeting}&lt;/title&gt;
+        &lt;style&gt;
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+                color: #333333;
+                margin: 0;
+                padding: 0;
+            }
+            .container {
+                width: 100%;
+                max-width: 600px;
+                margin: 0 auto;
+                background-color: #ffffff;
+                padding: 20px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                border-radius: 8px;
+            }
+            .header {
+                text-align: center;
+                padding: 10px 0;
+                border-bottom: 1px solid #eeeeee;
+            }
+            .header h1 {
+                margin: 0;
+                color: #212529;
+            }
+            .content {
+                padding: 20px;
+                text-align: left;
+            }
+            .content p {
+                margin: 0 0 15px;
+            }
+            .btn {
+                display: inline-block;
+                padding: 10px 20px;
+                margin: 20px 0;
+                font-size: 16px;
+                color: #ffffff;
+                background-color: #212529;
+                text-decoration: none;
+                border-radius: 5px;
+                text-align: center;
+            }
+            .btn-label {
+                font-size: 16px;
+                color: #ffffff;
+            }
+            .footer {
+                text-align: center;
+                padding: 10px 0;
+                border-top: 1px solid #eeeeee;
+                font-size: 12px;
+                color: #777777;
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div class=&quot;container&quot;&gt;
+            &lt;div class=&quot;header&quot;&gt;
+                &lt;h1&gt;${greeting}&lt;/h1&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;content&quot;&gt;
+                &lt;p&gt;&lt;strong&gt;${username}&lt;/strong&gt;&lt;/p&gt;
+                &lt;p&gt;${message}&lt;/p&gt;
+                &lt;a href=&quot;${linkUrl}&quot; class=&quot;btn&quot;&gt;&lt;span class=&quot;btn-label&quot;&gt;${linkLabel}&lt;/span&gt;&lt;/a&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;footer&quot;&gt;
+                &lt;p&gt;&amp;copy; ${new Date().getFullYear()}. All rights reserved.&lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+    `;
+}</code></pre>
+    </details>
+    
+        </div>
+      
+      </section>
+    
+
+      <section id="fn-api_routes/shared/templates/recovery.js">
+        <h2>api/routes/shared/templates/recovery.js</h2>
+        
+        <div class="function" style="border: 1px solid #bfbfbf; padding: 1rem;">
+          <h3>template</h3>
+          <p style="word-break: break-word;">(No description)</p>
+          
+          
+          
+          
+    <details>
+        <summary>Show function code</summary>
+        <pre><code class="language-js">export function template(username, link) {
+    return `&lt;!DOCTYPE html&gt;
+    &lt;html lang=&quot;en&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;UTF-8&quot;&gt;
+        &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+        &lt;title&gt;Recuperación de contraseña&lt;/title&gt;
+        &lt;style&gt;
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+                color: #333333;
+                margin: 0;
+                padding: 0;
+            }
+            .container {
+                width: 100%;
+                max-width: 600px;
+                margin: 0 auto;
+                background-color: #ffffff;
+                padding: 20px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                border-radius: 8px;
+            }
+            .header {
+                text-align: center;
+                padding: 10px 0;
+                border-bottom: 1px solid #eeeeee;
+            }
+            .header h1 {
+                margin: 0;
+                color: #212529;
+            }
+            .content {
+                padding: 20px;
+                text-align: left;
+            }
+            .content p {
+                margin: 0 0 15px;
+            }
+            .btn {
+                display: inline-block;
+                padding: 10px 20px;
+                margin: 20px 0;
+                font-size: 16px;
+                color: #ffffff;
+                background-color: #212529;
+                text-decoration: none;
+                border-radius: 5px;
+                text-align: center;
+            }
+            .btn-label {
+                font-size: 16px;
+                color: #ffffff;
+            }
+            .footer {
+                text-align: center;
+                padding: 10px 0;
+                border-top: 1px solid #eeeeee;
+                font-size: 12px;
+                color: #777777;
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div class=&quot;container&quot;&gt;
+            &lt;div class=&quot;header&quot;&gt;
+                &lt;h1&gt;Recuperación de contraseña&lt;/h1&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;content&quot;&gt;
+                &lt;p&gt;Estimado &lt;strong&gt;${username}&lt;/strong&gt;,&lt;/p&gt;
+                &lt;p&gt;Hemos recibido una solicitud para restablecer su contraseña. Haga clic en el botón a continuación para restablecerla:&lt;/p&gt;
+                &lt;a href=&quot;${link}&quot; class=&quot;btn&quot;&gt;&lt;span class=&quot;btn-label&quot;&gt;Restablecer contraseña&lt;/span&gt;&lt;/a&gt;
+                &lt;p&gt;Si no solicitó un restablecimiento de contraseña, por favor ignore este correo electrónico y contacte al soporte si tiene preguntas.&lt;/p&gt;
+                &lt;p&gt;Gracias,&lt;br&gt;El equipo de Fisco Manager&lt;/p&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;footer&quot;&gt;
+                &lt;p&gt;&amp;copy; ${new Date().getFullYear()}. Todos los derechos reservados.&lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+    `;
+}</code></pre>
+    </details>
+    
+        </div>
+      
+      </section>
+    
+
+      <section id="fn-api_routes/shared/utils.js">
+        <h2>api/routes/shared/utils.js</h2>
+        
+        <div class="function" style="border: 1px solid #bfbfbf; padding: 1rem;">
+          <h3>fmanValidateTaxId</h3>
+          <p style="word-break: break-word;">(No description)</p>
+          
+          
+          
+          
+    <details>
+        <summary>Show function code</summary>
+        <pre><code class="language-js">export function fmanValidateTaxId(cuit) {
+    // Eliminar caracteres no numéricos
+    cuit = cuit.replace(/[^0-9]/g, &#39;&#39;);
+
+    // Validar longitud
+    if (cuit.length !== 11) return false;
+
+    // Coeficientes para la validación
+    const coeficientes = [5, 4, 3, 2, 7, 6, 5, 4, 3, 2];
+
+    // Obtener los primeros 10 dígitos
+    const cuitArray = cuit.split(&#39;&#39;).map(Number);
+    const digitoVerificador = cuitArray.pop();
+
+    // Calcular la suma ponderada
+    const suma = cuitArray.reduce((acc, num, index) =&gt; acc + num * coeficientes[index], 0);
+
+    // Obtener el dígito verificador esperado
+    let verificadorCalculado = 11 - (suma % 11);
+    if (verificadorCalculado === 11) verificadorCalculado = 0;
+    if (verificadorCalculado === 10) verificadorCalculado = 9;
+
+    // Comparar con el dígito verificador real
+    return verificadorCalculado === digitoVerificador;
+}</code></pre>
+    </details>
+    
+        </div>
+      
+
+        <div class="function" style="border: 1px solid #bfbfbf; padding: 1rem;">
+          <h3>fmanFormatTaxId</h3>
+          <p style="word-break: break-word;">(No description)</p>
+          
+          
+          
+          
+    <details>
+        <summary>Show function code</summary>
+        <pre><code class="language-js">export function fmanFormatTaxId(input) {
+    // Ensure the input is a string and has the correct length
+    // if (typeof input !== &#39;string&#39; || input.length &lt; 3) {
+    //     return &quot;&quot;;
+    // }
+
+    if (!input) {
+        return &quot;&quot;;
+    }
+
+    if (typeof input === &#39;number&#39;) {
+        input = input.toString();
+    }
+
+    // Extract the first 2 characters
+    const firstPart = input.slice(0, 2);
+
+    // Extract the middle part (from index 2 to the second last character)
+    const middlePart = input.slice(2, -1);
+
+    // Extract the last character
+    const lastPart = input.slice(-1);
+
+    // Combine the parts with hyphens
+    return `${firstPart}-${middlePart}-${lastPart}`;
+}</code></pre>
+    </details>
+    
+        </div>
+      
+
+        <div class="function" style="border: 1px solid #bfbfbf; padding: 1rem;">
+          <h3>fmanFormatTaxIdInput</h3>
+          <p style="word-break: break-word;">(No description)</p>
+          
+          
+          
+          
+    <details>
+        <summary>Show function code</summary>
+        <pre><code class="language-js">export function fmanFormatTaxIdInput(input) {
+    // Eliminar caracteres no numéricos
+    let cuit = input.value.replace(/\D/g, &#39;&#39;);
+
+    // Limitar a 11 caracteres numéricos
+    cuit = cuit.slice(0, 11);
+
+    // Aplicar la máscara XX-XXXXXXXX-X
+    let cuitFormateado = &#39;&#39;;
+    if (cuit.length &gt; 2) {
+        cuitFormateado = cuit.slice(0, 2) + &#39;-&#39;;
+        if (cuit.length &gt; 10) {
+            cuitFormateado += cuit.slice(2, 10) + &#39;-&#39; + cuit.slice(10);
+        } else {
+            cuitFormateado += cuit.slice(2);
+        }
+    } else {
+        cuitFormateado = cuit;
+    }
+
+    // Asignar el valor formateado al input
+    input.value = cuitFormateado;
+}</code></pre>
+    </details>
+    
+        </div>
+      
+      </section>
+    
+
+      <section id="fn-api_routes/test/public/api.js">
+        <h2>api/routes/test/public/api.js</h2>
+        
+        <div class="function" style="border: 1px solid #bfbfbf; padding: 1rem;">
+          <h3>logoff</h3>
+          <p style="word-break: break-word;">(No description)</p>
+          
+          
+          
+          
+    <details>
+        <summary>Show function code</summary>
+        <pre><code class="language-js">export const logoff = async (args, context) =&gt; {
+
+    // websocketsSend(
+    //     &quot;033B6E42BAB03FE11B1157A9B67932A7D4610C1CA712E6FA51E474A27084DDF515399D5E0B740EA464EAF1BEDB7158D3EEEF7DB25071C6AD2FB693448142FF73&quot;,
+    //     { context: &quot;logoff&quot;, data: &quot;logoff jijijj&quot; });
+
+    const data = await qr(&quot;www.google.com&quot;);
+
+    return { error: false, code: 1000, data };
+
+};</code></pre>
+    </details>
+    
+        </div>
+      
+      </section>
+    
+    </body>
+    </html>
+  

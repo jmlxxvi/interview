@@ -1,0 +1,42 @@
+@import "./variables.css";
+@import "./fonts.css";
+@import "./reset.css";
+@import "./spinner.css";
+@import "./layout.css";
+@import "./sidebar.css";
+@import "./files.css";
+
+@import "./utils/borders.css";
+@import "./utils/buttons.css";
+@import "./utils/colors.css";
+@import "./utils/container.css";
+@import "./utils/debug.css";
+@import "./utils/display.css";
+@import "./utils/flexbox.css";
+@import "./utils/font.css";
+@import "./utils/forms.css";
+@import "./utils/grid.css";
+@import "./utils/overflow.css";
+@import "./utils/sizing.css";
+@import "./utils/spacing.css";
+@import "./utils/position.css";
+@import "./utils/stacks.css";
+@import "./utils/tables.css";
+@import "./utils/breadcrumbs.css";
+@import "./utils/cursor.css";
+
+@import "./custom.css";
+
+
+/* Components */
+@import "../components/Counter1.css";
+@import "../components/Dropdown/Dropdown.css";
+@import "../components/Modal/Modal.css";
+@import "../components/Tables/DataTable.css";
+@import "../components/Forms/selects/DataSelect.css";
+@import "../components/Tabs/Tabs.css";
+
+/* App specific CSS */
+@import "../views/shared/styles.css";
+
+

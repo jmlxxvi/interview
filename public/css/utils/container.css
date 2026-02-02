@@ -1,0 +1,247 @@
+/*
+Container Types:
+.container – Fixed-width, centered layout (with breakpoints).
+.container-fluid – Full-width, spans the entire viewport.
+.container-{breakpoint} – Becomes fluid at a certain breakpoint (sm, md, lg, etc.).
+
+<!-- Full-width container -->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-6">Half-width</div>
+    <div class="col-6">Half-width</div>
+  </div>
+</div>
+
+<!-- Fixed container (resizes at breakpoints) -->
+<div class="container">
+  <div class="row">
+    <div class="col-12">Fixed-width container</div>
+  </div>
+</div>
+
+<!-- Container that becomes fluid at a specific breakpoint -->
+<div class="container-lg">
+  <div class="row">
+    <div class="col-4">Column 1</div>
+    <div class="col-4">Column 2</div>
+    <div class="col-4">Column 3</div>
+  </div>
+</div>
+*/
+
+/* 1. Full-Width Container */
+.container-fluid {
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 2. Fixed-Width Container (Breakpoints) */
+.container {
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/*
+.container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+*/
+
+@media (min-width: 576px) {
+    .container {
+        max-width: 540px;
+    }
+}
+
+/* Small */
+@media (min-width: 768px) {
+    .container {
+        max-width: 720px;
+    }
+}
+
+/* Medium */
+@media (min-width: 992px) {
+    .container {
+        max-width: 960px;
+    }
+}
+
+/* Large */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1140px;
+    }
+}
+
+/* Extra Large */
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1320px;
+    }
+}
+
+/* XXL */
+
+/* 3. Fluid Containers at Specific Breakpoints */
+.container-sm {
+    width: 100%;
+}
+
+.container-md {
+    width: 100%;
+}
+
+.container-lg {
+    width: 100%;
+}
+
+.container-xl {
+    width: 100%;
+}
+
+.container-xxl {
+    width: 100%;
+}
+
+@media (min-width: 576px) {
+    .container-sm {
+        max-width: 540px;
+    }
+}
+
+@media (min-width: 768px) {
+    .container-md {
+        max-width: 720px;
+    }
+}
+
+@media (min-width: 992px) {
+    .container-lg {
+        max-width: 960px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container-xl {
+        max-width: 1140px;
+    }
+}
+
+@media (min-width: 1400px) {
+    .container-xxl {
+        max-width: 1320px;
+    }
+}
+
+/* 
+Adjustable Gutters for Containers 
+Instead of fixed 15px padding, you can define a .gutter-* class to adjust spacing dynamically.
+
+<div class="container gutter-3">
+  <div class="row">
+    <div class="col-6">Content</div>
+    <div class="col-6">More content</div>
+  </div>
+</div>
+*/
+.container,
+.container-fluid,
+.container-sm,
+.container-md,
+.container-lg,
+.container-xl,
+.container-xxl {
+    padding-left: var(--container-padding, 15px);
+    padding-right: var(--container-padding, 15px);
+}
+
+/* Adjustable gutter spacing */
+.gutter-0 {
+    --container-padding: 0px;
+}
+
+.gutter-1 {
+    --container-padding: 5px;
+}
+
+.gutter-2 {
+    --container-padding: 10px;
+}
+
+.gutter-3 {
+    --container-padding: 15px;
+}
+
+.gutter-4 {
+    --container-padding: 20px;
+}
+
+/* 
+Centered Containers for Smaller Screens 
+By default, .container is full-width on small screens. If you want it to always be centered, you can modify this.
+
+<div class="container centered">
+  <div class="row">
+    <div class="col-12">This is always centered</div>
+  </div>
+</div>
+*/
+.container.centered {
+    max-width: 90%;
+    /* Shrink width slightly on mobile */
+}
+
+@media (min-width: 576px) {
+    .container.centered {
+        max-width: 540px;
+    }
+}
+
+@media (min-width: 768px) {
+    .container.centered {
+        max-width: 720px;
+    }
+}
+
+@media (min-width: 992px) {
+    .container.centered {
+        max-width: 960px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container.centered {
+        max-width: 1140px;
+    }
+}
+
+@media (min-width: 1400px) {
+    .container.centered {
+        max-width: 1320px;
+    }
+}
+
+/* 
+Flexible Offsets
+Currently, offsets use a percentage. If you want an easier method, use auto offsets.
+
+<div class="row">
+  <div class="col-4 offset-auto">This column is centered</div>
+</div>
+
+*/
+.offset-auto {
+    margin-left: auto;
+    margin-right: auto;
+  }
+

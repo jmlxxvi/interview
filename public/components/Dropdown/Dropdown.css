@@ -1,0 +1,93 @@
+.dots-button {
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dots-button:hover {
+    background: #f0f0f0;
+}
+
+.dots-button:active {
+    background: #e0e0e0;
+}
+
+.dropdown-menu {
+    position: absolute;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    min-width: 150px;
+    display: none;
+    z-index: 1050;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+.dropdown-item {
+    display: block;
+    padding: 8px 16px;
+    color: #333;
+    text-decoration: none;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    text-align: left;
+}
+
+.dropdown-item:hover {
+    background: #f8f9fa;
+}
+
+.dropdown-item:last-child {
+    border-bottom: none;
+}
+
+/* Text links */
+/* .text-link {
+    color: #0066cc;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 4px;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.text-link:hover {
+    background: #f0f0f0;
+} */
+
+.dropdown-item.disabled {
+    color: #999;
+    cursor: not-allowed;
+    background-color: transparent;
+}
+
+.dropdown-item.disabled:hover {
+    background-color: transparent;
+}
+
+/* Add this to your CSS file */
+.dropdown-divider {
+    height: 1px;
+    background-color: #e5e7eb; /* Light gray */
+    margin: 0.5rem 0; /* 8px top and bottom */
+    border: none;
+    width: 100%;
+}
+
+/* Optional: Adjust spacing around divider */
+.dropdown-item + .dropdown-divider {
+    margin-top: 0.25rem;
+}
+
+.dropdown-divider + .dropdown-item {
+    margin-top: 0.25rem;
+}

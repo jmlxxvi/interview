@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Factory</title>
+    <link rel="shortcut icon" type="image/x-icon" href="./images/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Special+Gothic+Expanded+One&display=swap" rel="stylesheet">
+    <link href="css/login.css" rel="stylesheet">
+    <script type="module" src="./login.js" defer></script>
+</head>
+
+<body class="p-4">
+
+    <div id="login__alert_body" class="login-alert"
+        style="display: none; position: fixed; top: 2rem; text-align: center" role="alert">
+        <div class="m-4" id="login__alert_message"></div>
+    </div>
+
+    <div class="vstack" id="login__main_form"
+        style="padding: 3rem; background: rgba(255, 255, 255,  .95); border: 1px solid; display: none;">
+
+        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 1rem;">
+            <h1 class="app-title font-logo">Factory</h1>
+        </div>
+
+
+        <!-- Login form -->
+        <div class="form-wrapper" id="login__login_form" style="display: none;">
+
+            <div class="mb-3">
+                <label for="login__email" class="form-label">Email</label>
+                <input type="text" class="form-control" id="login__email" value="test@mail.com">
+            </div>
+
+            <div class="mb-3">
+                <label for="login__password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="login__password" value="1234">
+            </div>
+
+            <loading-button id="login__submit" classes="w-100 mt-2">Login</loading-button>
+
+            <div class="mt-4 text-left">
+                <a id="login__recovery_link" href="login.html?action=recovery" class="login-navigation-link">Forgot your password?</a>
+            </div>
+
+
+        </div>
+
+        <!-- Recovery form -->
+        <div class="form-wrapper" id="login__recovery_form">
+
+            <div class="mb-3">
+                <label id="login__tax_id_label" for="login__recovery_email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="login__recovery_email">
+            </div>
+
+            <loading-button id="login__submit_recovery" classes="w-100 mt-2">Recover Password</loading-button>
+
+        </div>
+
+        <!-- Reset form -->
+        <div class="form-wrapper" id="login__reset_form">
+
+            <div class="mb-3">
+                <label id="login__password_label" for="login__reset_password1" class="form-label">Password</label>
+                <input type="password" class="form-control" id="login__reset_password1">
+            </div>
+            <div class="mb-3">
+                <label id="login__password_retype_label" for="login__reset_password2" class="form-label">Re-enter Password</label>
+                <input type="password" class="form-control" id="login__reset_password2">
+            </div>
+
+            <loading-button id="login__submit_reset" classes="w-100 mt-2">Reset Password</loading-button>
+
+        </div>
+
+        <!-- Create user form -->
+        <div class="form-wrapper" id="login__create_form">
+
+            <form action="#">
+
+                <div class="mb-3">
+                    <input type="text" class="form-control" id="login__create_email">
+                    <label for="login__create_email">Email</label>
+                </div>
+
+                <div class="mb-3">
+                    <input type="text" class="form-control" id="login__create_full_name">
+                    <label for="login__create_full_name">Full Name</label>
+                </div>
+
+                <div class="mb-3">
+                    <input type="password" class="form-control" id="login__create_password">
+                    <label for="login__create_password">Password</label>
+                </div>
+
+                <loading-button id="login__submit_create" classes="w-100 mt-2">Create Account</loading-button>
+
+                <small class="d-block mt-3 text-left">
+                    <a id="login__create_back_link" href="#"><span style="color: antiquewhite;">Back</span></a>
+                </small>
+
+            </form>
+
+        </div>
+
+        <!-- Invitation form -->
+        <div class="form-wrapper" id="login__invitation_form">
+
+            <form action="#">
+
+                <div class="mb-3" style="color: aliceblue;">
+                    <span id="login__invitation_pre"></span>
+                </div>
+
+                <div class="mb-3">
+                    <input type="text" class="form-control" id="login__invitation_full_name">
+                    <label for="login__invitation_full_name">Full Name</label>
+                </div>
+
+                <div class="mb-3">
+                    <input type="password" class="form-control" id="login__invitation_password">
+                    <label for="login__invitation_password">Password</label>
+                </div>
+
+                <button id="login__submit_invitation" class="btn btn-primary w-100" type="button">
+                    <span id="login__spinner" class="spinner-border spinner-border-sm d-none" role="status"
+                        aria-hidden="true"></span>
+                    <span id="login__submit_invitation_label">Accept Invitation</span>
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+
+</body>
+
+</html>

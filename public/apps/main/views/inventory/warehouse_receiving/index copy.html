@@ -1,0 +1,108 @@
+<div aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">
+            Warehouse Receiving
+        </li>
+    </ol>
+</div>
+
+<div class="container-xl">
+    <div class="p-3 border">
+        <h4 class="mb-4">Receive Inventory</h4>
+
+        <div class="mb-3">
+            <label for="invrcv__product" class="form-label">Product *</label>
+            <rpc-select 
+                id="invrcv__product"
+                mod="app/masterdata/product"
+                fun="findAll"
+                value-field="id"
+                label-field="name"
+                placeholder="Select product to receive">
+            </rpc-select>
+        </div>
+
+        <div class="mb-3">
+            <label for="invrcv__type" class="form-label">Inventory Type *</label>
+            <select class="form-control" id="invrcv__type">
+                <option value="RAW">Raw Material</option>
+                <option value="WIP">Work in Progress</option>
+                <option value="FINISHED">Finished Product</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="invrcv__lot_code" class="form-label">Lot Code *</label>
+            <input type="text" class="form-control" id="invrcv__lot_code" placeholder="Enter lot code">
+            <small class="form-text text-muted">If lot doesn't exist, it will be created automatically</small>
+        </div>
+
+        <div class="mb-3">
+            <label for="invrcv__quantity" class="form-label">Quantity *</label>
+            <input type="number" step="0.001" class="form-control" id="invrcv__quantity" placeholder="Enter quantity">
+        </div>
+
+        <div class="mb-3">
+            <label for="invrcv__location" class="form-label">Destination Location *</label>
+            <rpc-select 
+                id="invrcv__location"
+                mod="app/inventory/location"
+                fun="findAll"
+                value-field="id"
+                label-field="name"
+                placeholder="Select warehouse location">
+            </rpc-select>
+        </div>
+
+        <div class="mb-3">
+            <label for="invrcv__vendor" class="form-label">Vendor</label>
+            <rpc-select 
+                id="invrcv__vendor"
+                mod="app/masterdata/vendor"
+                fun="findAll"
+                value-field="id"
+                label-field="name"
+                placeholder="Select vendor (optional)">
+            </rpc-select>
+        </div>
+
+        <div class="mb-3">
+            <label for="invrcv__expiration" class="form-label">Expiration Date</label>
+            <date-picker id="invrcv__expiration" format="DD Month YYYY" locale="en"></date-picker>
+            <small class="form-text text-muted">Leave blank if product has no expiration</small>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 mb-3">
+                <label for="invrcv__price" class="form-label">Unit Price</label>
+                <input type="number" step="0.01" class="form-control" id="invrcv__price" placeholder="0.00">
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="invrcv__currency" class="form-label">Currency</label>
+                <select class="form-control" id="invrcv__currency">
+                    <option value="USD">USD</option>
+                    <option value="ARS">ARS</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="alert alert-info">
+            <strong>Note:</strong> This operation will:
+            <ul class="mb-0">
+                <li>Create the lot if it doesn't exist</li>
+                <li>Create or update the inventory item at the specified location</li>
+                <li>Record a RECEIPT movement in inventory history</li>
+            </ul>
+        </div>
+
+        <div class="flex flex-row flex-justify-end flex-align-center mt-4">
+            <button id="invrcv__clear" class="button link mr-3">Clear Form</button>
+            <loading-button id="invrcv__submit">Receive Inventory</loading-button>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <h5>Recent Receipts</h5>
+        <div id="invrcv__recent_table"></div>
+    </div>
+</div>

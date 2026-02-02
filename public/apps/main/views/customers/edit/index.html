@@ -1,0 +1,30 @@
+<div aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="/customers" router-link>Clientes</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+            Editar Cliente
+        </li>
+    </ol>
+</div>
+
+<div class="container-xl">
+    <h4 id="customers_edit__entity_name" class="mb-1"></h4>
+    <h5 id="customers_edit__entity_id" class="mb-2"></h5>
+
+    <div class="mb-3">
+        <label for="customers_edit__contact_name" class="form-label">Nombre del contacto</label>
+        <input type="text" class="form-control" id="customers_edit__contact_name">
+    </div>
+
+    <div class="mb-3">
+        <label for="customers_edit__contact_email" class="form-label">Correo electrónico</label>
+        <input type="text" class="form-control" id="customers_edit__contact_email">
+    </div>
+
+    <div class="flex flex-row flex-justify-between flex-align-center">
+        <button id="customers_edit__delete" class="button link" style="color: var(--danger);">Eliminar</button>
+        <loading-button id="customers_edit__submit" classes="mt-2">Guardar</loading-button>
+    </div>
+</div>

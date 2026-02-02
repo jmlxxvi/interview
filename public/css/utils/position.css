@@ -1,0 +1,59 @@
+/* Position Utilities */
+
+.position-static { position: static; }
+.position-relative { position: relative; }
+.position-absolute { position: absolute; }
+.position-fixed { position: fixed; }
+.position-sticky { position: sticky; }
+
+/* Top, Right, Bottom, Left Utilities */
+.top-0 { top: 0; }
+.top-50 { top: 50%; }
+.top-100 { top: 100%; }
+.bottom-0 { bottom: 0; }
+.bottom-50 { bottom: 50%; }
+.bottom-100 { bottom: 100%; }
+.left-0 { left: 0; }
+.left-50 { left: 50%; }
+.left-100 { left: 100%; }
+.right-0 { right: 0; }
+.right-50 { right: 50%; }
+.right-100 { right: 100%; }
+
+/* Translate Utilities */
+.translate-middle { transform: translate(-50%, -50%); }
+.translate-middle-x { transform: translateX(-50%); }
+.translate-middle-y { transform: translateY(-50%); }
+
+/* Fixed & Sticky Utilities */
+.fixed-top { position: fixed; top: 0; left: 0; width: 100%; z-index: 1030; }
+.fixed-bottom { position: fixed; bottom: 0; left: 0; width: 100%; z-index: 1030; }
+.sticky-top { position: sticky; top: 0; z-index: 1020; }
+.sticky-bottom { position: sticky; bottom: 0; z-index: 1020; }
+
+/* 
+
+Examples
+
+<button type="button" class="btn btn-primary position-relative">
+  Mails <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">+99 <span class="visually-hidden">unread messages</span></span>
+</button>
+
+<button type="button" class="btn btn-dark position-relative">
+  Marker <svg width="1em" height="1em" viewBox="0 0 16 16" class="position-absolute top-100 start-50 translate-middle mt-1" fill="#212529" xmlns="http://www.w3.org/2000/svg"><path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/></svg>
+</button>
+
+<button type="button" class="btn btn-primary position-relative">
+  Alerts <span class="position-absolute top-0 start-100 translate-middle badge border border-light rounded-circle bg-danger p-2"><span class="visually-hidden">unread messages</span></span>
+</button>
+
+<div class="position-relative m-4">
+  <div class="progress" style="height: 1px;">
+    <div class="progress-bar" role="progressbar" aria-label="Progress" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+  </div>
+  <button type="button" class="position-absolute top-0 start-0 translate-middle btn btn-sm btn-primary rounded-pill" style="width: 2rem; height:2rem;">1</button>
+  <button type="button" class="position-absolute top-0 start-50 translate-middle btn btn-sm btn-primary rounded-pill" style="width: 2rem; height:2rem;">2</button>
+  <button type="button" class="position-absolute top-0 start-100 translate-middle btn btn-sm btn-secondary rounded-pill" style="width: 2rem; height:2rem;">3</button>
+</div>
+
+*/

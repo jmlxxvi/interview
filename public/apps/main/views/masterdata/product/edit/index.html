@@ -1,0 +1,187 @@
+<div aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item" aria-current="page">
+            Master Data
+        </li>
+        <li class="breadcrumb-item">
+            <a href="masterdata/product" router-link>Products</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+            Edit Product
+        </li>
+    </ol>
+</div>
+
+<div class="container-xl mb-4">
+    <!-- <div style="width: 32rem;" class="mb-2"> -->
+    <div class="border p-3 mb-3" style="width: 32rem;">
+
+        <div class="mb-3" id="mdaprdedt__code" style="font-size: 1.4rem; font-weight: bold;"></div>
+
+        <!-- <div class="mb-3">
+            <label for="mdaprdedt__code" class="form-label">Code</label>
+            <input type="text" class="form-control" id="mdaprdedt__code" readonly>
+        </div> -->
+
+        <div class="mb-3">
+            <label for="mdaprdedt__name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="mdaprdedt__name">
+        </div>
+
+        <div class="mb-3">
+            <label for="mdaprdedt__description" class="form-label">Description</label>
+            <textarea class="form-control" id="mdaprdedt__description" rows="3"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="mdaprdedt__unit_of_measure" class="form-label">Unit of Measure</label>
+            <factory-uom id="mdaprdedt__unit_of_measure"></factory-uom>
+        </div>
+
+        <!-- <div class="mb-3">
+            <label for="mdaprdedt__shelf_life_days" class="form-label">Shelf Life (days)</label>
+            <input type="number" class="form-control" id="mdaprdedt__shelf_life_days" min="0">
+        </div> -->
+
+        <div class="mb-3">
+            <label for="mdaprdedt__is_own" class="form-label">
+                <toggle-switch id="mdaprdedt__is_own">
+                    Own Product
+            </label>
+        </div>
+    </div>
+
+    <!-- Vendors -->
+    <div id="mdaprdedt__vendors_section" style="margin-bottom: 1rem; padding: 1rem;" class="border">
+        <div class="mb-4">
+            <div class="hstack flex-align-center mb-3">
+                <div><h4>Vendors</h4></div>
+                <a href="#" class="button link" id="mdaprdedt__vendors_associate">Associate Vendor</a>
+            </div>
+
+            <div id="mdaprdedt__vendors_container"></div>
+
+        </div>
+    </div>
+
+    <!-- BOM -->
+    <div id="mdaprdedt__bom_section" style="margin-bottom: 1rem; padding: 1rem;" class="border">
+        <div class="mb-4">
+            <div class="hstack flex-align-center mb-3">
+                <div><h4>Bill of Materials</h4></div>
+                <a href="#" class="button link" id="mdaprdedt__bom_add">Add BOM</a>
+            </div>
+
+            <div id="mdaprdedt__bom_container"></div>
+        </div>
+    </div>
+
+    <!-- Routing -->
+    <div id="mdaprdedt__routing_section" style="margin-bottom: 1rem; padding: 1rem;" class="border">
+        <div class="mb-4">
+            <div class="hstack flex-align-center mb-3">
+                <div><h4>Routing</h4></div>
+                <a href="#" class="button link" id="mdaprdedt__routing_add">Add Routing</a>
+            </div>
+
+            <div id="mdaprdedt__routing_container"></div>
+        </div>
+    </div>
+
+    <!-- Submit -->
+    <div class="flex flex-row flex-justify-between flex-align-center">
+        <button id="mdaprdedt__delete" class="button link danger">Delete</button>
+        <loading-button id="mdaprdedt__submit" classes="mt-2">Save</loading-button>
+    </div>
+</div>
+
+
+<!-- ************************** OLD *********************** -->
+<!-- <div class="container-xl">
+    <div class="tabs">
+        <div class="tab-headers">
+            <button class="tab-header active" data-tab="mdaprdedt__tab1">Details</button>
+            <button class="tab-header" data-tab="mdaprdedt__tab2" disabled>Vendors</button>
+            <button class="tab-header" data-tab="mdaprdedt__tab3" disabled>BOM</button>
+            <button class="tab-header" data-tab="mdaprdedt__tab4" disabled>Routing</button>
+        </div>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="mdaprdedt__tab1">
+                <div class="mb-3">
+                    <label for="mdaprdedt__code" class="form-label">Code</label>
+                    <input type="text" class="form-control" id="mdaprdedt__code" readonly>
+                </div>
+
+                <div class="mb-3">
+                    <label for="mdaprdedt__name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="mdaprdedt__name">
+                </div>
+
+                <div class="mb-3">
+                    <label for="mdaprdedt__description" class="form-label">Description</label>
+                    <textarea class="form-control" id="mdaprdedt__description" rows="3"></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="mdaprdedt__unit_of_measure" class="form-label">Unit of Measure</label>
+                    <factory-uom id="mdaprdedt__unit_of_measure"></factory-uom>
+                </div>
+
+                <div class="mb-3">
+                    <label for="mdaprdedt__shelf_life_days" class="form-label">Shelf Life (days)</label>
+                    <input type="number" class="form-control" id="mdaprdedt__shelf_life_days" min="0">
+                </div>
+
+                <div class="mb-3">
+                    <label for="mdaprdedt__is_own" class="form-label">
+                        <toggle-switch id="mdaprdedt__is_own">
+                            Own Product
+                    </label>
+                </div>
+
+                <div class="flex flex-row flex-justify-between flex-align-center">
+                    <button id="mdaprdedt__delete" class="button link" style="color: var(--danger);">Delete</button>
+                    <loading-button id="mdaprdedt__submit" classes="mt-2">Save</loading-button>
+                </div>
+            </div>
+
+            <div class="tab-pane" id="mdaprdedt__tab2">
+                <div class="mb-4">
+                    <div class="hstack flex-align-center mb-3">
+                        <div></div>
+                        <a href="#" class="button link" id="mdaprdedt__vendors_associate">Associate Vendor</a>
+                    </div>
+
+                    <div id="mdaprdedt__vendors_container"></div>
+
+                </div>
+            </div>
+
+            <div class="tab-pane" id="mdaprdedt__tab3">
+                <div class="mb-4">
+                    <div class="hstack flex-align-center mb-3">
+                        <div></div>
+                        <a href="#" class="button link" id="mdaprdedt__bom_add">Add BOM</a>
+                    </div>
+
+                    <div id="mdaprdedt__bom_container"></div>
+                </div>
+            </div>
+
+            <div class="tab-pane" id="mdaprdedt__tab4">
+                <div class="mb-4">
+                    <div class="hstack flex-align-center mb-3">
+                        <div></div>
+                        <a href="#" class="button link" id="mdaprdedt__routing_add">Add Routing</a>
+                    </div>
+
+                    <div id="mdaprdedt__routing_container"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</div> -->

@@ -1,0 +1,43 @@
+<div aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="/users" router-link>Usuarios</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+            Editar usuario
+        </li>
+    </ol>
+</div>
+
+<div class="container-xl">
+
+    <div class="mb-3">
+        <label for="users_edit__user_name" class="form-label">Nombre del usuario</label>
+        <input type="text" class="form-control" id="users_edit__user_name">
+    </div>
+
+    <div class="mb-3">
+        <label for="users_edit__user_email" class="form-label">Correo electrónico</label>
+        <input type="text" class="form-control" id="users_edit__user_email">
+    </div>
+
+    <div class="mb-3">
+        <label for="users_edit__is_active" class="form-label">Activo</label>
+        <toggle-switch type="text" class="" id="users_edit__is_active"></toggle-switch>
+    </div>
+
+    <div class="mb-3">
+        <label for="users_edit__roles" class="form-label">Roles</label>
+        <div id="users_edit__roles" target="#users_edit__roles"></div>
+    </div>
+
+    <div class="mb-3">
+        <label for="users_edit__entities" class="form-label">Entidades</label>
+        <div id="users_edit__entities" target="#users_edit__entities"></div>
+    </div>
+
+    <div class="flex flex-row flex-justify-between flex-align-center">
+        <button id="users_edit__delete" class="button link" style="color: var(--danger);">Eliminar</button>
+        <loading-button id="users_edit__submit" classes="mt-2">Guardar</loading-button>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fisco Manager Backoffice</title>
+    <link rel="shortcut icon" type="image/x-icon" href="./images/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Special+Gothic+Expanded+One&display=swap" rel="stylesheet">
+    <link href="/apps/backoffice/login.css" rel="stylesheet">
+    <script type="module" src="/apps/backoffice/login.js" defer></script>
+</head>
+
+<body class="p-4">
+
+    <div id="login__alert_body" class="login-alert"
+        style="display: none; position: fixed; top: 2rem; text-align: center" role="alert">
+        <div class="m-4" id="login__alert_message"></div>
+    </div>
+
+    <div class="vstack" id="login__main_form"
+        style="padding: 3rem; background: rgba(255, 255, 255,  .95); border: 1px solid;">
+
+        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 1rem;">
+            <h1 class="app-title font-logo">Fisco Manager<br>Backoffice</h1>
+        </div>
+
+
+        <!-- Login form -->
+        <div class="form-wrapper" id="login__login_form">
+
+            <div class="mb-3">
+                <label for="login__email" class="form-label">Correo electrónico</label>
+                <input type="text" class="form-control" id="login__email" value="juanmartinguillen@gmail.com">
+            </div>
+
+            <div class="mb-3">
+                <label for="login__password" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="login__password" value="1234">
+            </div>
+
+            <loading-button id="login__submit" classes="w-100 mt-2">Ingresar</loading-button>
+
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,133 @@
+.app-sidebar {
+    width: 250px;
+    background-color: var(--gray-100);
+    color: #343a40;
+    position: fixed;
+    top: 60px;
+    bottom: 0;
+    left: 0;
+    transition: transform 0.3s ease;
+    z-index: 101;
+}
+
+.sidebar-nav {
+    overflow-y: auto;
+}
+
+#sidebar-info {
+    padding-left: 1.5rem;
+}
+
+#sidebar-logout {
+    display: flex;
+    align-items: anchor-center;
+    padding: 12px 20px;
+    color: var(--gray-800);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#sidebar-logout span {
+    padding-left: .5rem;
+}
+
+.menu {
+    padding: 1rem 0;
+}
+
+.menu-item {
+    list-style: none;
+}
+
+.menu-link {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.25rem;
+    color: var(--gray-800);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-left: 3px solid transparent;
+    font-weight: 900;
+}
+
+.menu-link:hover {
+    /* border-left-color: var(--gray-900); */
+}
+
+.menu-link.active {
+    /* background-color: var(--gray-200); */
+    background-color: var(--white);
+    /* border: 1px solid var(--gray-300); */
+    /* border-left-color: var(--gray-900); */
+}
+
+.menu-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+    /* filter: invert(70%); */
+}
+
+.menu-link.active .menu-icon {
+    /* filter: invert(100%); */
+}
+
+.menu-text {
+    flex: 1;
+}
+
+.submenutext {
+    font-weight: normal;
+}
+
+.menu-arrow {
+    transition: transform 0.3s ease;
+}
+
+.menu-item.has-submenu.open .menu-arrow {
+    transform: rotate(180deg);
+}
+
+.submenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    margin-left: 2rem;
+}
+
+.menu-item.has-submenu.open .submenu {
+    max-height: 500px;
+}
+
+/* .submenu-item {
+    list-style: none;
+} */
+
+/* .submenu-link {
+    display: block;
+    padding: 12px 20px 12px 52px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    position: relative;
+} */
+/*
+ .submenu-link:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: white;
+}
+
+.submenu-link.active {
+    color: white;
+    background-color: rgba(52, 152, 219, 0.15);
+}
+
+.submenu-link.active::before {
+    content: '';
+    position: absolute;
+    left: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+} */
