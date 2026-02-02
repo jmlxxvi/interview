@@ -414,13 +414,3 @@ export async function getWorkOrderDetails (args, context) {
 
 ### Q61: How do you ensure code quality in your work?
 
-**Expected Answer**:
-- Write tests (unit, integration, E2E)
-- Follow code style guide (StandardJS)
-- Code reviews
-- Documentation
-- Performance testing
-- Security considerations
-- Iterative refinement
-
----
